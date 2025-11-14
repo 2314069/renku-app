@@ -1,0 +1,34 @@
+.export-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.export-btn,
+.print-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.export-btn {
+  background: #3498db;
+  color: white;
+}
+
+.export-btn:hover {
+  background: #2980b9;
+}
+
+.print-btn {
+  background: #95a5a6;
+  color: white;
+}
+
+.print-btn:hover {
+  background: #7f8c8d;
+}
+

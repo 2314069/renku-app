@@ -1,0 +1,137 @@
+.verse-list-container {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.verse-list-container h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.verse-list-empty {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+.verse-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.verse-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.verse-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.verse-list::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.verse-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.verse-item {
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.verse-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.verse-item.verse-575 {
+  background: #ebf5fb;
+  border-left-color: #3498db;
+}
+
+.verse-item.verse-77 {
+  background: #fdedec;
+  border-left-color: #e74c3c;
+}
+
+.verse-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.verse-order {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.verse-type {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.verse-575 .verse-type {
+  background: #3498db;
+  color: white;
+}
+
+.verse-77 .verse-type {
+  background: #e74c3c;
+  color: white;
+}
+
+.verse-author {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+
+.verse-text {
+  font-size: 1.3rem;
+  line-height: 2;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  letter-spacing: 0.05em;
+  font-weight: 400;
+}
+
+.verse-season-word {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 10px;
+  background: #fff9e6;
+  border: 1px solid #f39c12;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #d68910;
+}
+
+.verse-time {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: #95a5a6;
+}
+

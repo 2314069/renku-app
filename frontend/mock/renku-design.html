@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>連句アプリ - 画面イメージ</title>
+	<style>
+		:root{
+			--bg:#0b0c0f;
+			--panel:#141820;
+			--muted:#7d8aa0;
+			--text:#e9eef7;
+			--accent:#5aa1ff;
+			--accent-2:#8dd3ff;
+			--danger:#ff6b6b;
+			--ok:#38d39f;
+			--border:#212736;
+		}
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0;
+			background:linear-gradient(180deg,#0b0c0f 0%, #0f1320 100%);
+			color:var(--text);
+			font:14px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", Roboto, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+			letter-spacing:.2px;
+		}
+		a{color:var(--accent);text-decoration:none}
+		header{
+			position:sticky;top:0;z-index:10;
+			backdrop-filter:saturate(140%) blur(8px);
+			background:rgba(11,12,15,.6);
+			border-bottom:1px solid var(--border);
+		}
+		.header-inner{
+			max-width:1200px;margin:0 auto;padding:12px 20px;
+			display:flex;align-items:center;gap:16px;
+		}
+		.brand{
+			display:flex;align-items:center;gap:10px;
+			font-weight:700;font-size:16px;
+		}
+		.logo{
+			width:28px;height:28px;border-radius:8px;
+			background:radial-gradient(120% 120% at 30% 30%, var(--accent) 0%, var(--accent-2) 42%, #1b1f2b 42%, #1b1f2b 100%);
+			box-shadow:0 0 20px rgba(90,161,255,.25) inset, 0 6px 16px rgba(0,0,0,.5);
+		}
+		.header-actions{margin-left:auto;display:flex;gap:8px}
+		.btn{
+			border:1px solid var(--border);
+			background:#101420;color:var(--text);
+			padding:8px 12px;border-radius:8px;cursor:pointer;
+		}
+		.btn.primary{background:linear-gradient(180deg, #1b3a6b, #102744);border-color:#1f3b69}
+		.btn.ghost{background:transparent}
+		.layout{
+			max-width:1200px;margin:20px auto;padding:0 20px;
+			display:grid;grid-template-columns:1fr 300px;gap:16px;
+		}
+		@media (max-width:1024px){
+			.layout{grid-template-columns:1fr}
+			.sidebar-right{display:none}
+		}
+		@media (max-width:720px){
+			.layout{grid-template-columns:1fr}
+			.sidebar-left{order:2}
+			.main{order:1}
+		}
+		.panel{
+			background:linear-gradient(180deg, #111522, #0f1420);
+			border:1px solid var(--border);
+			border-radius:12px;
+			box-shadow:0 12px 30px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.02) inset;
+			overflow:hidden;
+		}
+		.panel .hd{
+			padding:12px 14px;border-bottom:1px solid var(--border);
+			font-weight:600;display:flex;align-items:center;gap:8px
+		}
+		.panel .bd{padding:14px}
+		.input, textarea{
+			width:100%;padding:10px 12px;border-radius:10px;
+			border:1px solid var(--border);background:#0c1220;color:var(--text);
+			outline:none
+		}
+		.input:focus, textarea:focus{border-color:#2c66ff;box-shadow:0 0 0 3px rgba(44,102,255,.15)}
+		.hint{color:var(--muted);font-size:12px}
+		.list{display:flex;flex-direction:column;gap:8px}
+		.item{
+			border:1px solid var(--border);background:#0e1422;border-radius:10px;padding:10px;cursor:pointer;
+			display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center
+		}
+		.item:hover{border-color:#2a3a5c}
+		.badge{font-size:12px;color:#b8c8e8;background:#182033;border:1px solid #233253;padding:2px 8px;border-radius:999px}
+		.verse{
+			display:flex;gap:10px;align-items:flex-start
+		}
+		.verse .tag{
+			min-width:64px;text-align:center;font-size:12px;color:#c4d1ea;background:#1a2236;border:1px solid #263451;border-radius:999px;padding:4px 8px
+		}
+		.verse .text{
+			flex:1;border-bottom:1px dashed #23324d;padding:8px 0 14px;margin-bottom:6px
+		}
+		.verse .meta{color:var(--muted);font-size:12px;margin-top:4px}
+		.stack{display:flex;flex-direction:column;gap:12px}
+		.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+		.divider{height:1px;background:var(--border);margin:10px 0}
+		.kpi{
+			display:grid;grid-template-columns:repeat(3,1fr);gap:8px
+		}
+		.kpi .card{
+			border:1px solid var(--border);background:#0e1422;border-radius:10px;padding:10px
+		}
+		.kpi .num{font-weight:700;font-size:18px}
+		.toolbar{
+			display:flex;gap:8px;flex-wrap:wrap
+		}
+		.btn.small{padding:6px 10px;font-size:12px;border-radius:8px}
+		footer{
+			max-width:1200px;margin:24px auto;padding:0 20px 40px;color:var(--muted);font-size:12px
+		}
+		/* composer */
+		.counter{font-variant-numeric:tabular-nums}
+		.counter.ok{color:var(--ok)}
+		.counter.warn{color:#ffd166}
+		.counter.bad{color:var(--danger)}
+	</style>
+</head>
+<body>
+	<header>
+		<div class="header-inner">
+			<div class="brand">
+				<div class="logo" aria-hidden="true"></div>
+				<div>連句アプリ</div>
+			</div>
+			<div class="row" style="gap:14px">
+				<div class="hint">季題: 秋 | 進行: 二句目</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="layout">
+
+		<!-- 中央：本文 -->
+		<main class="panel main">
+			<div class="hd">連句表示</div>
+			<div class="bd">
+				<div class="kpi" style="margin-bottom:10px">
+					<div class="card">
+						<div class="hint">季語</div>
+						<div class="num">秋（月）</div>
+					</div>
+					<div class="card">
+						<div class="hint">進行</div>
+						<div class="num">3 / 100</div>
+					</div>
+				</div>
+
+				<div class="stack" id="verses">
+					<div class="verse">
+						<div class="tag">発句</div>
+						<div class="text">
+							<div>市中は物のにほひや夏の月</div>
+							<div class="meta">by 凡兆</div>
+						</div>
+					</div>
+					<div class="verse">
+						<div class="tag">脇句</div>
+						<div class="text">
+							<div>あつしあつしと門々の声</div>
+							<div class="meta">by 芭蕉</div>
+						</div>
+					</div>
+					<div class="verse">
+						<div class="tag">第三</div>
+						<div class="text">
+							<div></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="divider"></div>
+
+				<div class="stack" aria-labelledby="composer-title">
+					<div class="row" style="justify-content:space-between">
+						<div id="composer-title" style="font-weight:600">句の投稿</div>
+						<div class="hint">要件: 5-7-5 付け、季語: 月、恋NG</div>
+					</div>
+					<textarea id="inputText" rows="3" placeholder="ここに句を入力（例：灯ともして　縁側ひやり　虫の声）"></textarea>
+					<div class="row" style="justify-content:flex-end">
+						<div class="hint counter" id="counter">文字数: 0</div>
+					</div>
+					<div class="row" style="justify-content:flex-end;gap:8px">
+						<button class="btn">下書き保存</button>
+						<button class="btn primary" id="submitBtn">投稿</button>
+					</div>
+					<div class="hint" id="ruleHint">形式チェック: 未入力</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- 右：名前・ルール -->
+		<aside class="panel sidebar-right">
+			<div class="hd">名前 / ルール</div>
+			<div class="bd">
+				<div class="stack">
+					<div>
+						<div style="font-weight:600;margin-bottom:6px">名前</div>
+						<div class="item" style="grid-template-columns:1fr">
+							<div>あなた</div>
+						</div>
+					</div>
+
+					<div>
+						<div style="font-weight:600;margin:10px 0 6px">ルール</div>
+						<ul class="hint" style="margin:0 0 10px 18px">
+							<li>5-7-5 / 7-7 の付けを交互に進行</li>
+							<li>季語「秋」。今回は「恋」題は不可</li>
+							<li>直前句と意味の飛躍を適度に保つ</li>
+						</ul>
+						<div class="row">
+							<button class="btn small">詳細</button>
+							<button class="btn small">履歴</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</aside>
+	</div>
+
+	<footer>
+		© 2025 Renku App. この画面はデザインイメージです。
+	</footer>
+
+	<script>
+		const input = document.getElementById('inputText');
+		const counter = document.getElementById('counter');
+		const ruleHint = document.getElementById('ruleHint');
+		const submitBtn = document.getElementById('submitBtn');
+
+		function moraCount(str){
+			// 簡易: ひらがな・カタカナ・漢字は1、長音「ー」も1、空白は0
+			// 実運用は形態素解析が必要
+			return (str.replace(/\s/g,'').match(/./gu)||[]).length;
+		}
+
+		function check575(str){
+			const lines = str.split(/[\n、。・,，]/).map(s=>s.trim()).filter(Boolean);
+			if(lines.length < 3) return {ok:false, msg:'3フレーズ（5/7/5）に分けてください（読点・改行で区切り）'};
+			const [a,b,c] = lines;
+			const ca = moraCount(a), cb = moraCount(b), cc = moraCount(c);
+			const pa = Math.abs(ca-5), pb = Math.abs(cb-7), pc = Math.abs(cc-5);
+			const ok = pa<=1 && pb<=1 && pc<=1; // ざっくり許容
+			return {
+				ok,
+				msg:`配分: ${ca}/${cb}/${cc}（目安 5/7/5）`,
+				diff:[pa,pb,pc]
+			};
+		}
+
+		function update(){
+			const text = input.value;
+			const len = moraCount(text);
+			counter.textContent = `文字数: ${len}`;
+			counter.className = 'hint counter ' + (len===0 ? '' : len<10 ? 'warn' : 'ok');
+
+			if(!text.trim()){
+				ruleHint.textContent = '形式チェック: 未入力';
+				return;
+			}
+			const res = check575(text);
+			ruleHint.textContent = '形式チェック: ' + res.msg;
+			ruleHint.style.color = res.ok ? '#38d39f' : '#ffd166';
+		}
+
+		input.addEventListener('input', update);
+			submitBtn.addEventListener('click', ()=>{
+			const t = input.value.trim();
+			if(!t){ alert('句を入力してください'); return; }
+			const res = check575(t);
+			if(!res.ok){ if(!confirm('形式が目安から外れています。このまま投稿しますか？')) return; }
+			// デモ用：画面に追加
+			const verses = document.getElementById('verses');
+			const wrap = document.createElement('div');
+			wrap.className='verse';
+			wrap.innerHTML = `
+				<div class="tag">第三</div>
+				<div class="text">
+					<div>${t.replace(/[<>&]/g, s=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[s]))}</div>
+					<div class="meta">by あなた</div>
+				</div>`;
+			verses.appendChild(wrap);
+			input.value='';
+			update();
+			window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});
+		});
+
+		update();
+	</script>
+</body>
+</html>
+
+

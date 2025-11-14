@@ -1,0 +1,42 @@
+import axios from 'axios';
+import type { Renku, Verse, Participant } from './types';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
+export const api = {
+  // 新しい連句を作成
+  createRenku: async (title: string, participantName: string): Promise<Renku> => {
+    const response = await axios.post(`${API_BASE_URL}/api/renku`, {
+      title,
+      participantName
+    });
+    return response.data;
+  },
+
+  // 連句を取得
+  getRenku: async (id: string): Promise<Renku> => {
+    const response = await axios.get(`${API_BASE_URL}/api/renku/${id}`);
+    return response.data;
+  },
+
+  // 句を追加
+  addVerse: async (renkuId: string, participantId: string, text: string, seasonWord?: string): Promise<Verse> => {
+    const response = await axios.post(`${API_BASE_URL}/api/renku/${renkuId}/verse`, {
+      participantId,
+      text,
+      seasonWord
+    });
+    return response.data;
+  },
+
+  // 参加者を追加
+  addParticipant: async (renkuId: string, name: string): Promise<Participant> => {
+    const response = await axios.post(`${API_BASE_URL}/api/renku/${renkuId}/participant`, {
+      name
+    });
+    return response.data;
+  }
+};
+
+
+
