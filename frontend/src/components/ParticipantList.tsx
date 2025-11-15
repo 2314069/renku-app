@@ -4,13 +4,11 @@ import './ParticipantList.css';
 interface ParticipantListProps {
   participants: Participant[];
   currentTurn: number;
-  currentParticipantId: string;
 }
 
 export default function ParticipantList({ 
   participants, 
-  currentTurn,
-  currentParticipantId 
+  currentTurn
 }: ParticipantListProps) {
   const nextParticipant = participants[currentTurn];
   

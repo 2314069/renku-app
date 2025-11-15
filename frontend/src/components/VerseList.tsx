@@ -1,12 +1,11 @@
-import { Verse, Participant } from '../types';
+import { Verse } from '../types';
 import './VerseList.css';
 
 interface VerseListProps {
   verses: Verse[];
-  participants: Participant[];
 }
 
-export default function VerseList({ verses, participants }: VerseListProps) {
+export default function VerseList({ verses }: VerseListProps) {
   if (verses.length === 0) {
     return (
       <div className="verse-list-empty">
@@ -19,7 +18,7 @@ export default function VerseList({ verses, participants }: VerseListProps) {
     <div className="verse-list-container">
       <h2>詠まれた句</h2>
       <div className="verse-list">
-        {verses.map((verse, index) => (
+        {verses.map((verse) => (
           <div key={verse.id} className={`verse-item verse-${verse.type}`}>
             <div className="verse-header">
               <span className="verse-order">第{verse.order}句</span>

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Renku } from '../types';
 import VerseInput from './VerseInput';
 import VerseList from './VerseList';
@@ -13,7 +12,6 @@ interface RenkuRoomProps {
 }
 
 export default function RenkuRoom({ renku, participantId, onAddVerse }: RenkuRoomProps) {
-  const currentParticipant = renku.participants.find(p => p.id === participantId);
   const nextVerseType = renku.verses.length === 0 ? '575' : 
     renku.verses[renku.verses.length - 1].type === '575' ? '77' : '575';
   const isMyTurn = renku.participants[renku.currentTurn]?.id === participantId;
@@ -45,12 +43,10 @@ export default function RenkuRoom({ renku, participantId, onAddVerse }: RenkuRoo
             </div>
           </div>
 
-          <VerseList verses={renku.verses} participants={renku.participants} />
+          <VerseList verses={renku.verses} />
 
           <VerseInput
             verseType={nextVerseType as '575' | '77'}
-            participants={renku.participants}
-            currentParticipant={currentParticipant!}
             verses={renku.verses}
             isMyTurn={isMyTurn}
             onAddVerse={onAddVerse}
@@ -61,7 +57,6 @@ export default function RenkuRoom({ renku, participantId, onAddVerse }: RenkuRoo
           <ParticipantList 
             participants={renku.participants}
             currentTurn={renku.currentTurn}
-            currentParticipantId={participantId}
           />
         </aside>
       </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { api } from './api';
-import { Renku, Verse, Participant } from './types';
+import { Renku } from './types';
 import RenkuRoom from './components/RenkuRoom';
 import CreateRenkuForm from './components/CreateRenkuForm';
 import JoinRenkuForm from './components/JoinRenkuForm';
@@ -127,6 +127,7 @@ function App() {
 }
 
 export default App;
+
 
 
 

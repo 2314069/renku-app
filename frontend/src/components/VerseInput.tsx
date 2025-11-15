@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { Verse, Participant } from '../types';
+import { Verse } from '../types';
 import { validate575, validate77, detectSeasonWord, checkTabooWords } from '../utils/verseValidator';
 import './VerseInput.css';
 
 interface VerseInputProps {
   verseType: '575' | '77';
-  participants: Participant[];
-  currentParticipant: Participant;
   verses: Verse[];
   isMyTurn: boolean;
   onAddVerse: (text: string, seasonWord?: string) => void;
@@ -14,7 +12,6 @@ interface VerseInputProps {
 
 export default function VerseInput({
   verseType,
-  currentParticipant,
   verses,
   isMyTurn,
   onAddVerse

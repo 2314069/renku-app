@@ -13,7 +13,7 @@ export default function ExportButton({ renku }: ExportButtonProps) {
     text += `参加者: ${renku.participants.map(p => p.name).join(', ')}\n\n`;
     text += '────────────────\n\n';
 
-    renku.verses.forEach((verse, index) => {
+    renku.verses.forEach((verse) => {
       text += `第${verse.order}句 (${verse.type === '575' ? '5-7-5' : '7-7'})\n`;
       text += `${verse.text}\n`;
       text += `詠者: ${verse.participantName}`;
