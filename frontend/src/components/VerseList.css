@@ -1,25 +1,26 @@
 .verse-list-container {
-  background: white;
+  background: #161b22;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #30363d;
 }
 
 .verse-list-container h2 {
   font-size: 1.5rem;
-  color: #2c3e50;
+  color: #ffffff;
   margin-bottom: 20px;
   padding-bottom: 15px;
-  border-bottom: 2px solid #ecf0f1;
+  border-bottom: 2px solid #30363d;
 }
 
 .verse-list-empty {
-  background: white;
+  background: #161b22;
   padding: 40px;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   text-align: center;
-  color: #7f8c8d;
+  color: #8b949e;
   font-size: 1.1rem;
 }
 
@@ -37,17 +38,17 @@
 }
 
 .verse-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #0d1117;
   border-radius: 4px;
 }
 
 .verse-list::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #30363d;
   border-radius: 4px;
 }
 
 .verse-list::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #484f58;
 }
 
 .verse-item {
@@ -63,13 +64,13 @@
 }
 
 .verse-item.verse-575 {
-  background: #ebf5fb;
-  border-left-color: #3498db;
+  background: #0d1b26;
+  border-left-color: #58a6ff;
 }
 
 .verse-item.verse-77 {
-  background: #fdedec;
-  border-left-color: #e74c3c;
+  background: #1c1a1f;
+  border-left-color: #f85149;
 }
 
 .verse-header {
@@ -82,7 +83,7 @@
 
 .verse-order {
   font-weight: 600;
-  color: #2c3e50;
+  color: #ffffff;
   font-size: 1rem;
 }
 
@@ -104,7 +105,7 @@
 }
 
 .verse-author {
-  color: #7f8c8d;
+  color: #8b949e;
   font-size: 0.9rem;
   margin-left: auto;
 }
@@ -112,7 +113,7 @@
 .verse-text {
   font-size: 1.3rem;
   line-height: 2;
-  color: #2c3e50;
+  color: #e0e0e0;
   margin-bottom: 10px;
   letter-spacing: 0.05em;
   font-weight: 400;
@@ -132,11 +133,11 @@
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  background: #fff9e6;
-  border: 1px solid #f39c12;
+  background: #1c2128;
+  border: 1px solid #d29922;
   border-radius: 16px;
   font-size: 0.9rem;
-  color: #d68910;
+  color: #d29922;
   font-weight: 500;
 }
 
@@ -150,6 +151,6 @@
 
 .verse-time {
   font-size: 0.8rem;
-  color: #95a5a6;
+  color: #6e7681;
 }
 

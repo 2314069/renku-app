@@ -1,25 +1,26 @@
 .renku-room {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: #0d1117;
 }
 
 .room-header {
-  background: white;
+  background: #161b22;
   padding: 20px 40px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #30363d;
 }
 
 .room-header h1 {
   font-size: 1.8rem;
-  color: #2c3e50;
+  color: #ffffff;
   margin-bottom: 5px;
 }
 
 .renku-id {
-  color: #7f8c8d;
+  color: #8b949e;
   font-size: 0.9rem;
 }
 
@@ -40,23 +41,23 @@
 
 .title-input {
   padding: 8px 12px;
-  border: 2px solid #ecf0f1;
+  border: 2px solid #30363d;
   border-radius: 6px;
   font-size: 1.8rem;
   font-weight: 600;
-  color: #2c3e50;
-  background: white;
+  color: #ffffff;
+  background: #0d1117;
   outline: none;
   font-family: inherit;
 }
 
 .title-input:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
 }
 
 .title-input:disabled {
-  background: #f8f9fa;
+  background: #161b22;
   cursor: not-allowed;
 }
 
@@ -90,12 +91,13 @@
 }
 
 .title-cancel-btn {
-  background: #ecf0f1;
-  color: #2c3e50;
+  background: #21262d;
+  color: #e0e0e0;
+  border: 1px solid #30363d;
 }
 
 .title-cancel-btn:hover:not(:disabled) {
-  background: #bdc3c7;
+  background: #30363d;
 }
 
 .title-cancel-btn:disabled {
@@ -157,21 +159,22 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px;
-  background: white;
+  background: #161b22;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #30363d;
 }
 
 .kpi-card {
-  border: 1px solid #ecf0f1;
-  background: #f8f9fa;
+  border: 1px solid #30363d;
+  background: #0d1117;
   border-radius: 10px;
   padding: 10px;
 }
 
 .kpi-label {
-  color: #7f8c8d;
+  color: #8b949e;
   font-size: 0.85rem;
   margin-bottom: 5px;
 }
@@ -179,14 +182,15 @@
 .kpi-value {
   font-weight: 700;
   font-size: 1.1rem;
-  color: #2c3e50;
+  color: #ffffff;
 }
 
 .sidebar {
-  background: white;
+  background: #161b22;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #30363d;
   height: fit-content;
   position: sticky;
   top: 20px;

@@ -1,13 +1,14 @@
 .create-renku-form {
-  background: white;
+  background: #161b22;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid #30363d;
 }
 
 .create-renku-form h2 {
   margin-bottom: 25px;
-  color: #2c3e50;
+  color: #ffffff;
   font-size: 1.5rem;
   text-align: center;
 }
@@ -19,22 +20,28 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: #34495e;
+  color: #e0e0e0;
   font-weight: 500;
 }
 
 .form-group input {
   width: 100%;
   padding: 12px;
-  border: 2px solid #ecf0f1;
+  border: 2px solid #30363d;
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s;
+  background: #0d1117;
+  color: #e0e0e0;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #3498db;
+  border-color: #58a6ff;
+}
+
+.form-group input::placeholder {
+  color: #6e7681;
 }
 
 .submit-btn {

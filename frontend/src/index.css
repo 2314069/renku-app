@@ -6,9 +6,9 @@
 
 body {
   font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: #0d1117;
   min-height: 100vh;
-  color: #333;
+  color: #e0e0e0;
 }
 
 #root {

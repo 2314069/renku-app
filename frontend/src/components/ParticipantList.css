@@ -1,9 +1,9 @@
 .participant-list-container h3 {
   font-size: 1.2rem;
-  color: #2c3e50;
+  color: #ffffff;
   margin-bottom: 15px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #ecf0f1;
+  border-bottom: 2px solid #30363d;
 }
 
 .name-section {
@@ -18,11 +18,11 @@
 }
 
 .name-item {
-  border: 1px solid #ecf0f1;
-  background: #f8f9fa;
+  border: 1px solid #30363d;
+  background: #0d1117;
   border-radius: 10px;
   padding: 10px;
-  color: #2c3e50;
+  color: #e0e0e0;
 }
 
 .name-item-editable {
@@ -44,21 +44,21 @@
 .name-input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ecf0f1;
+  border: 1px solid #30363d;
   border-radius: 8px;
   font-size: 0.95rem;
-  color: #2c3e50;
-  background: white;
+  color: #e0e0e0;
+  background: #0d1117;
   outline: none;
 }
 
 .name-input:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
 }
 
 .name-input:disabled {
-  background: #f8f9fa;
+  background: #161b22;
   cursor: not-allowed;
 }
 
@@ -93,12 +93,13 @@
 }
 
 .name-cancel-btn {
-  background: #ecf0f1;
-  color: #2c3e50;
+  background: #21262d;
+  color: #e0e0e0;
+  border: 1px solid #30363d;
 }
 
 .name-cancel-btn:hover:not(:disabled) {
-  background: #bdc3c7;
+  background: #30363d;
 }
 
 .name-cancel-btn:disabled {
@@ -112,7 +113,7 @@
 
 .rules-label {
   font-weight: 600;
-  color: #2c3e50;
+  color: #e0e0e0;
   margin-bottom: 6px;
   font-size: 0.95rem;
 }
@@ -120,7 +121,7 @@
 .rules-list {
   margin: 0 0 10px 18px;
   padding: 0;
-  color: #7f8c8d;
+  color: #8b949e;
   font-size: 0.9rem;
   line-height: 1.6;
 }
@@ -138,8 +139,8 @@
 .rule-btn {
   padding: 6px 10px;
   background: transparent;
-  border: 1px solid #ecf0f1;
-  color: #2c3e50;
+  border: 1px solid #30363d;
+  color: #e0e0e0;
   border-radius: 8px;
   font-size: 0.85rem;
   cursor: pointer;
@@ -147,8 +148,8 @@
 }
 
 .rule-btn:hover {
-  background: #f8f9fa;
-  border-color: #bdc3c7;
+  background: #21262d;
+  border-color: #484f58;
 }
 
 .rule-btn.small {
@@ -165,22 +166,23 @@
 .participant-item {
   padding: 12px;
   border-radius: 8px;
-  background: #f8f9fa;
+  background: #0d1117;
   transition: all 0.3s;
+  border: 1px solid #30363d;
 }
 
 .participant-item.current-turn {
-  background: #d5f4e6;
-  border: 2px solid #27ae60;
+  background: #1c2a1f;
+  border: 2px solid #3fb950;
 }
 
 .participant-item.me {
-  background: #ebf5fb;
+  background: #0d1b26;
 }
 
 .participant-item.me.current-turn {
-  background: #a8e6cf;
-  border: 2px solid #27ae60;
+  background: #1c2a1f;
+  border: 2px solid #3fb950;
 }
 
 .participant-info {
@@ -193,12 +195,12 @@
 
 .participant-name {
   font-weight: 500;
-  color: #2c3e50;
+  color: #e0e0e0;
 }
 
 .me-badge {
   font-size: 0.85rem;
-  color: #3498db;
+  color: #58a6ff;
   font-weight: normal;
 }
 
