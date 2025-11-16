@@ -30,14 +30,6 @@ export default function RenkuRoom({ renku, participantId, onAddVerse }: RenkuRoo
         <div className="main-section">
           <div className="kpi-indicators">
             <div className="kpi-card">
-              <div className="kpi-label">季語</div>
-              <div className="kpi-value">
-                {renku.verses.length > 0 && renku.verses[renku.verses.length - 1].seasonWord 
-                  ? renku.verses[renku.verses.length - 1].seasonWord 
-                  : '未設定'}
-              </div>
-            </div>
-            <div className="kpi-card">
               <div className="kpi-label">進行</div>
               <div className="kpi-value">{renku.verses.length} / 100</div>
             </div>
