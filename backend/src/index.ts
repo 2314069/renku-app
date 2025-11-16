@@ -43,7 +43,7 @@ setupRoutes(app);
 // Socket.io設定
 setupSocketIO(io);
 
-httpServer.listen(PORT, () => {
+httpServer.listen(PORT, '0.0.0.0', () => {
   console.log(`サーバーがポート ${PORT} で起動しました`);
 });
 
