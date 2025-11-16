@@ -23,6 +23,121 @@
   font-size: 0.9rem;
 }
 
+.title-editable {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.title-editable:hover {
+  color: #3498db;
+}
+
+.title-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title-input {
+  padding: 8px 12px;
+  border: 2px solid #ecf0f1;
+  border-radius: 6px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+  background: white;
+  outline: none;
+  font-family: inherit;
+}
+
+.title-input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.title-input:disabled {
+  background: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.title-edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.title-save-btn,
+.title-cancel-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.title-save-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.title-save-btn:hover:not(:disabled) {
+  background: #229954;
+}
+
+.title-save-btn:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.title-cancel-btn {
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+.title-cancel-btn:hover:not(:disabled) {
+  background: #bdc3c7;
+}
+
+.title-cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.edit-renku-btn,
+.delete-renku-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-weight: 500;
+}
+
+.edit-renku-btn {
+  background: #3498db;
+  color: white;
+}
+
+.edit-renku-btn:hover {
+  background: #2980b9;
+}
+
+.delete-renku-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+.delete-renku-btn:hover {
+  background: #c0392b;
+}
+
 .room-content {
   max-width: 1400px;
   margin: 0 auto;

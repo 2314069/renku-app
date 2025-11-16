@@ -14,6 +14,33 @@ export function setupRoutes(app: Express, io: Server): void {
     res.json({ status: 'ok', message: 'Renku API is healthy' });
   });
 
+  // 全連句一覧を取得
+  app.get('/api/renku', async (req, res) => {
+    try {
+      const db = getDatabase();
+      const renkuCollection = db.collection<Renku>('renku');
+      
+      const renkus = await renkuCollection
+        .find({})
+        .sort({ updatedAt: -1 })
+        .limit(100)
+        .toArray();
+
+      // ObjectIdを文字列に変換
+      const response = renkus.map(renku => ({
+        ...renku,
+        _id: renku._id?.toString(),
+        createdAt: renku.createdAt instanceof Date ? renku.createdAt.toISOString() : renku.createdAt,
+        updatedAt: renku.updatedAt instanceof Date ? renku.updatedAt.toISOString() : renku.updatedAt
+      }));
+
+      res.json(response);
+    } catch (error) {
+      console.error('連句一覧取得エラー:', error);
+      res.status(500).json({ error: '連句一覧の取得に失敗しました' });
+    }
+  });
+
   // 新しい連句を作成
   app.post('/api/renku', async (req, res) => {
     try {
@@ -246,6 +273,82 @@ export function setupRoutes(app: Express, io: Server): void {
     } catch (error) {
       console.error('参加者名更新エラー:', error);
       res.status(500).json({ error: '参加者名の更新に失敗しました' });
+    }
+  });
+
+  // 連句を更新
+  app.put('/api/renku/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { title } = req.body;
+      const db = getDatabase();
+      const renkuCollection = db.collection<Renku>('renku');
+      
+      let renku;
+      if (ObjectId.isValid(id)) {
+        renku = await renkuCollection.findOne({ _id: new ObjectId(id) });
+      } else {
+        renku = await renkuCollection.findOne({ _id: id });
+      }
+
+      if (!renku) {
+        return res.status(404).json({ error: '連句が見つかりません' });
+      }
+
+      // タイトルを更新
+      if (title) {
+        renku.title = title;
+      }
+
+      renku.updatedAt = new Date();
+
+      const updateFilter = ObjectId.isValid(id)
+        ? { _id: new ObjectId(id) }
+        : { _id: id };
+
+      await renkuCollection.updateOne(
+        updateFilter,
+        { $set: renku }
+      );
+
+      // Socket.ioで更新を通知
+      const response = {
+        ...renku,
+        _id: renku._id?.toString()
+      };
+      io.to(`renku-${id}`).emit('renku-updated', response);
+
+      res.json(response);
+    } catch (error) {
+      console.error('連句更新エラー:', error);
+      res.status(500).json({ error: '連句の更新に失敗しました' });
+    }
+  });
+
+  // 連句を削除
+  app.delete('/api/renku/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const db = getDatabase();
+      const renkuCollection = db.collection<Renku>('renku');
+      
+      const deleteFilter = ObjectId.isValid(id)
+        ? { _id: new ObjectId(id) }
+        : { _id: id };
+
+      const result = await renkuCollection.deleteOne(deleteFilter);
+
+      if (result.deletedCount === 0) {
+        return res.status(404).json({ error: '連句が見つかりません' });
+      }
+
+      // Socket.ioで削除を通知
+      io.to(`renku-${id}`).emit('renku-deleted', { id });
+
+      res.json({ message: '連句が削除されました', id });
+    } catch (error) {
+      console.error('連句削除エラー:', error);
+      res.status(500).json({ error: '連句の削除に失敗しました' });
     }
   });
 }

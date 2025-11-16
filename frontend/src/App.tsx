@@ -78,12 +78,24 @@ function App() {
     }
   };
 
+  const handleRenkuUpdate = (updatedRenku: Renku) => {
+    setRenku(updatedRenku);
+  };
+
+  const handleRenkuDelete = () => {
+    setRenku(null);
+    setParticipantId(null);
+    setMode('create');
+  };
+
   if (mode === 'room' && renku) {
     return (
       <RenkuRoom
         renku={renku}
         participantId={participantId!}
         onAddVerse={handleAddVerse}
+        onRenkuUpdate={handleRenkuUpdate}
+        onRenkuDelete={handleRenkuDelete}
       />
     );
   }

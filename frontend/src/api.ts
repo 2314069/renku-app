@@ -43,6 +43,25 @@ export const api = {
       name
     });
     return response.data;
+  },
+
+  // 全連句一覧を取得
+  getAllRenku: async (): Promise<Renku[]> => {
+    const response = await axios.get(`${API_BASE_URL}/api/renku`);
+    return response.data;
+  },
+
+  // 連句を更新
+  updateRenku: async (renkuId: string, title: string): Promise<Renku> => {
+    const response = await axios.put(`${API_BASE_URL}/api/renku/${renkuId}`, {
+      title
+    });
+    return response.data;
+  },
+
+  // 連句を削除
+  deleteRenku: async (renkuId: string): Promise<void> => {
+    await axios.delete(`${API_BASE_URL}/api/renku/${renkuId}`);
   }
 };
 
