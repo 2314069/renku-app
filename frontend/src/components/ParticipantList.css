@@ -25,6 +25,87 @@
   color: #2c3e50;
 }
 
+.name-item-editable {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.name-item-editable:hover {
+  background: #e9ecef;
+  border-color: #bdc3c7;
+}
+
+.name-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  background: white;
+  outline: none;
+}
+
+.name-input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.name-input:disabled {
+  background: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.name-edit-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.name-save-btn,
+.name-cancel-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.name-save-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.name-save-btn:hover:not(:disabled) {
+  background: #229954;
+}
+
+.name-save-btn:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.name-cancel-btn {
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+.name-cancel-btn:hover:not(:disabled) {
+  background: #bdc3c7;
+}
+
+.name-cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .rules-section {
   margin-top: 20px;
 }

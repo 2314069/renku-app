@@ -1,16 +1,69 @@
+import { useState, useEffect } from 'react';
 import { Participant } from '../types';
+import { api } from '../api';
 import './ParticipantList.css';
 
 interface ParticipantListProps {
   participants: Participant[];
   currentTurn: number;
+  currentParticipantId: string;
+  renkuId: string;
+  onNameUpdate?: () => void;
 }
 
 export default function ParticipantList({ 
   participants, 
-  currentTurn
+  currentTurn,
+  currentParticipantId,
+  renkuId,
+  onNameUpdate
 }: ParticipantListProps) {
-  const nextParticipant = participants[currentTurn];
+  const currentParticipant = participants.find(p => p.id === currentParticipantId);
+  const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState(currentParticipant?.name || '');
+  const [isSaving, setIsSaving] = useState(false);
+
+  // 参加者が更新されたら名前を同期
+  useEffect(() => {
+    if (currentParticipant && !isEditing) {
+      setName(currentParticipant.name);
+    }
+  }, [currentParticipant, isEditing]);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const handleSave = async () => {
+    if (!name.trim() || !currentParticipant) return;
+    
+    setIsSaving(true);
+    try {
+      await api.updateParticipantName(renkuId, currentParticipantId, name.trim());
+      setIsEditing(false);
+      if (onNameUpdate) {
+        onNameUpdate();
+      }
+    } catch (error) {
+      console.error('名前更新エラー:', error);
+      alert('名前の更新に失敗しました');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setName(currentParticipant?.name || '');
+    setIsEditing(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSave();
+    } else if (e.key === 'Escape') {
+      handleCancel();
+    }
+  };
   
   return (
     <div className="participant-list-container">
@@ -18,9 +71,43 @@ export default function ParticipantList({
       <div className="participant-list">
         <div className="name-section">
           <div className="name-label">名前</div>
-          <div className="name-item">
-            {nextParticipant ? nextParticipant.name : '未設定'}
-          </div>
+          {isEditing ? (
+            <div className="name-edit">
+              <input
+                type="text"
+                value={name}
+                onChange={handleNameChange}
+                onKeyDown={handleKeyDown}
+                className="name-input"
+                disabled={isSaving}
+                autoFocus
+              />
+              <div className="name-edit-actions">
+                <button 
+                  className="name-save-btn" 
+                  onClick={handleSave}
+                  disabled={isSaving || !name.trim()}
+                >
+                  保存
+                </button>
+                <button 
+                  className="name-cancel-btn" 
+                  onClick={handleCancel}
+                  disabled={isSaving}
+                >
+                  キャンセル
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div 
+              className="name-item name-item-editable"
+              onClick={() => setIsEditing(true)}
+              title="クリックして編集"
+            >
+              {currentParticipant ? currentParticipant.name : '未設定'}
+            </div>
+          )}
         </div>
 
         <div className="rules-section">

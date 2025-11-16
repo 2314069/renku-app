@@ -35,6 +35,14 @@ export const api = {
       name
     });
     return response.data;
+  },
+
+  // 参加者の名前を更新
+  updateParticipantName: async (renkuId: string, participantId: string, name: string): Promise<Participant> => {
+    const response = await axios.put(`${API_BASE_URL}/api/renku/${renkuId}/participant/${participantId}`, {
+      name
+    });
+    return response.data;
   }
 };
 

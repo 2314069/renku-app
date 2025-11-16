@@ -39,11 +39,11 @@ app.use(express.json());
 // データベース接続
 connectDatabase();
 
-// ルート設定
-setupRoutes(app);
-
 // Socket.io設定
 setupSocketIO(io);
+
+// ルート設定（ioを渡す）
+setupRoutes(app, io);
 
 httpServer.listen(PORT, '0.0.0.0', () => {
   console.log(`サーバーがポート ${PORT} で起動しました`);

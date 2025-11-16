@@ -49,6 +49,8 @@ export default function RenkuRoom({ renku, participantId, onAddVerse }: RenkuRoo
           <ParticipantList 
             participants={renku.participants}
             currentTurn={renku.currentTurn}
+            currentParticipantId={participantId}
+            renkuId={renku._id}
           />
         </aside>
       </div>

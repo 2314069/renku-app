@@ -1,9 +1,10 @@
 import { Express } from 'express';
+import { Server } from 'socket.io';
 import { ObjectId } from 'mongodb';
 import { getDatabase } from './database';
 import type { Renku, Verse, Participant } from './database';
 
-export function setupRoutes(app: Express): void {
+export function setupRoutes(app: Express, io: Server): void {
   // ヘルスチェック
   app.get('/', (req, res) => {
     res.json({ status: 'ok', message: 'Renku API is running' });
@@ -186,6 +187,65 @@ export function setupRoutes(app: Express): void {
     } catch (error) {
       console.error('参加者追加エラー:', error);
       res.status(500).json({ error: '参加者の追加に失敗しました' });
+    }
+  });
+
+  // 参加者の名前を更新
+  app.put('/api/renku/:id/participant/:participantId', async (req, res) => {
+    try {
+      const { id, participantId } = req.params;
+      const { name } = req.body;
+      const db = getDatabase();
+      const renkuCollection = db.collection<Renku>('renku');
+      
+      let renku;
+      if (ObjectId.isValid(id)) {
+        renku = await renkuCollection.findOne({ _id: new ObjectId(id) });
+      } else {
+        renku = await renkuCollection.findOne({ _id: id });
+      }
+
+      if (!renku) {
+        return res.status(404).json({ error: '連句が見つかりません' });
+      }
+
+      const participant = renku.participants.find(p => p.id === participantId);
+      if (!participant) {
+        return res.status(404).json({ error: '参加者が見つかりません' });
+      }
+
+      // 参加者の名前を更新
+      participant.name = name;
+      
+      // 既存の句のparticipantNameも更新
+      renku.verses.forEach(verse => {
+        if (verse.participantId === participantId) {
+          verse.participantName = name;
+        }
+      });
+
+      renku.updatedAt = new Date();
+
+      const updateFilter = ObjectId.isValid(id) 
+        ? { _id: new ObjectId(id) }
+        : { _id: id };
+
+      await renkuCollection.updateOne(
+        updateFilter,
+        { $set: renku }
+      );
+
+      // Socket.ioで更新を通知
+      const response = {
+        ...renku,
+        _id: renku._id?.toString()
+      };
+      io.to(`renku-${id}`).emit('renku-updated', response);
+
+      res.json(participant);
+    } catch (error) {
+      console.error('参加者名更新エラー:', error);
+      res.status(500).json({ error: '参加者名の更新に失敗しました' });
     }
   });
 }
