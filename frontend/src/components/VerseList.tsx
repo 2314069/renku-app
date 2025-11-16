@@ -33,7 +33,6 @@ export default function VerseList({ verses }: VerseListProps) {
             <div className="verse-meta">
               {verse.seasonWord && (
                 <div className="verse-season-word">
-                  <span className="season-word-icon">🌸</span>
                   <span className="season-word-text">{verse.seasonWord}</span>
                 </div>
               )}
