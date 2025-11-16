@@ -4,6 +4,15 @@ import { getDatabase } from './database';
 import type { Renku, Verse, Participant } from './database';
 
 export function setupRoutes(app: Express): void {
+  // ヘルスチェック
+  app.get('/', (req, res) => {
+    res.json({ status: 'ok', message: 'Renku API is running' });
+  });
+
+  app.get('/health', (req, res) => {
+    res.json({ status: 'ok', message: 'Renku API is healthy' });
+  });
+
   // 新しい連句を作成
   app.post('/api/renku', async (req, res) => {
     try {
