@@ -20,7 +20,7 @@ const io = new Server(httpServer, {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT || '3000', 10);
 
 // ミドルウェア
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
