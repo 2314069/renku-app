@@ -166,10 +166,74 @@ export function setupRoutes(app: Express, io: Server): void {
         { $set: renku }
       );
 
+      // Socket.ioで更新を通知
+      const response = {
+        ...renku,
+        _id: renku._id?.toString()
+      };
+      io.to(`renku-${id}`).emit('renku-updated', response);
+
       res.json(newVerse);
     } catch (error) {
       console.error('句追加エラー:', error);
       res.status(500).json({ error: '句の追加に失敗しました' });
+    }
+  });
+
+  // 句を更新
+  app.put('/api/renku/:id/verse/:verseId', async (req, res) => {
+    try {
+      const { id, verseId } = req.params;
+      const { text, seasonWord } = req.body;
+      const db = getDatabase();
+      const renkuCollection = db.collection<Renku>('renku');
+      
+      let renku;
+      if (ObjectId.isValid(id)) {
+        renku = await renkuCollection.findOne({ _id: new ObjectId(id) });
+      } else {
+        renku = await renkuCollection.findOne({ _id: id });
+      }
+
+      if (!renku) {
+        return res.status(404).json({ error: '連句が見つかりません' });
+      }
+
+      const verse = renku.verses.find(v => v.id === verseId);
+      if (!verse) {
+        return res.status(404).json({ error: '句が見つかりません' });
+      }
+
+      // 句の内容を更新
+      if (text !== undefined) {
+        verse.text = text;
+      }
+      if (seasonWord !== undefined) {
+        verse.seasonWord = seasonWord;
+      }
+
+      renku.updatedAt = new Date();
+
+      const updateFilter = ObjectId.isValid(id)
+        ? { _id: new ObjectId(id) }
+        : { _id: id };
+
+      await renkuCollection.updateOne(
+        updateFilter,
+        { $set: renku }
+      );
+
+      // Socket.ioで更新を通知
+      const response = {
+        ...renku,
+        _id: renku._id?.toString()
+      };
+      io.to(`renku-${id}`).emit('renku-updated', response);
+
+      res.json(verse);
+    } catch (error) {
+      console.error('句更新エラー:', error);
+      res.status(500).json({ error: '句の更新に失敗しました' });
     }
   });
 

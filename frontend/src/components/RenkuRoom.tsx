@@ -149,7 +149,18 @@ export default function RenkuRoom({ renku, participantId, onAddVerse, onRenkuUpd
             </div>
           </div>
 
-          <VerseList verses={renku.verses} />
+          <VerseList 
+            verses={renku.verses}
+            renkuId={renku._id}
+            onVerseUpdate={() => {
+              // 句が更新されたら連句を再取得
+              if (onRenkuUpdate) {
+                api.getRenku(renku._id).then(updatedRenku => {
+                  onRenkuUpdate(updatedRenku);
+                });
+              }
+            }}
+          />
 
           <VerseInput
             verseType={nextVerseType as '575' | '77'}

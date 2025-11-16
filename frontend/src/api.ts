@@ -62,6 +62,15 @@ export const api = {
   // 連句を削除
   deleteRenku: async (renkuId: string): Promise<void> => {
     await axios.delete(`${API_BASE_URL}/api/renku/${renkuId}`);
+  },
+
+  // 句を更新
+  updateVerse: async (renkuId: string, verseId: string, text: string, seasonWord?: string): Promise<Verse> => {
+    const response = await axios.put(`${API_BASE_URL}/api/renku/${renkuId}/verse/${verseId}`, {
+      text,
+      seasonWord
+    });
+    return response.data;
   }
 };
 

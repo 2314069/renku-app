@@ -35,17 +35,10 @@ export default function ExportButton({ renku }: ExportButtonProps) {
     URL.revokeObjectURL(url);
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
     <div className="export-buttons">
       <button onClick={handleExport} className="export-btn">
         エクスポート
-      </button>
-      <button onClick={handlePrint} className="print-btn">
-        印刷
       </button>
     </div>
   );
