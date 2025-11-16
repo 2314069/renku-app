@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Verse } from '../types';
-import { validate575, validate77, detectSeasonWord, checkTabooWords } from '../utils/verseValidator';
+import { validate575, validate77, detectSeasonWord, checkTabooWords, SEASON_WORDS } from '../utils/verseValidator';
 import './VerseInput.css';
 
 interface VerseInputProps {
@@ -17,6 +17,7 @@ export default function VerseInput({
   onAddVerse
 }: VerseInputProps) {
   const [text, setText] = useState('');
+  const [selectedSeasonWord, setSelectedSeasonWord] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [charCount, setCharCount] = useState(0);
 
@@ -54,11 +55,12 @@ export default function VerseInput({
       return;
     }
 
-    // 季語の検出
-    const seasonWord = detectSeasonWord(trimmedText);
+    // 季語の選択（選択されていない場合は自動検出）
+    const seasonWord = selectedSeasonWord || detectSeasonWord(trimmedText);
 
     onAddVerse(trimmedText, seasonWord);
     setText('');
+    setSelectedSeasonWord('');
     setCharCount(0);
     setError(null);
   };
@@ -98,6 +100,41 @@ export default function VerseInput({
           disabled={!isMyTurn}
           maxLength={maxChars + 10}
         />
+        
+        <div className="season-word-selector">
+          <label htmlFor="season-word-select" className="season-word-label">
+            季語を選択（任意）
+          </label>
+          <select
+            id="season-word-select"
+            value={selectedSeasonWord}
+            onChange={(e) => setSelectedSeasonWord(e.target.value)}
+            className="season-word-select"
+            disabled={!isMyTurn}
+          >
+            <option value="">選択しない（自動検出）</option>
+            <optgroup label="春">
+              {SEASON_WORDS.spring.map(word => (
+                <option key={word} value={word}>{word}</option>
+              ))}
+            </optgroup>
+            <optgroup label="夏">
+              {SEASON_WORDS.summer.map(word => (
+                <option key={word} value={word}>{word}</option>
+              ))}
+            </optgroup>
+            <optgroup label="秋">
+              {SEASON_WORDS.autumn.map(word => (
+                <option key={word} value={word}>{word}</option>
+              ))}
+            </optgroup>
+            <optgroup label="冬">
+              {SEASON_WORDS.winter.map(word => (
+                <option key={word} value={word}>{word}</option>
+              ))}
+            </optgroup>
+          </select>
+        </div>
         
         <div className="input-footer">
           <div className="char-count-wrapper">

@@ -30,13 +30,16 @@ export default function VerseList({ verses }: VerseListProps) {
                 <span key={i}>{char}</span>
               ))}
             </div>
-            {verse.seasonWord && (
-              <div className="verse-season-word">
-                季語: {verse.seasonWord}
+            <div className="verse-meta">
+              {verse.seasonWord && (
+                <div className="verse-season-word">
+                  <span className="season-word-icon">🌸</span>
+                  <span className="season-word-text">{verse.seasonWord}</span>
+                </div>
+              )}
+              <div className="verse-time">
+                {new Date(verse.createdAt).toLocaleString('ja-JP')}
               </div>
-            )}
-            <div className="verse-time">
-              {new Date(verse.createdAt).toLocaleString('ja-JP')}
             </div>
           </div>
         ))}

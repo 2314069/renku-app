@@ -118,19 +118,37 @@
   font-weight: 400;
 }
 
+.verse-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .verse-season-word {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
   background: #fff9e6;
   border: 1px solid #f39c12;
-  border-radius: 12px;
-  font-size: 0.85rem;
+  border-radius: 16px;
+  font-size: 0.9rem;
   color: #d68910;
+  font-weight: 500;
+}
+
+.season-word-icon {
+  font-size: 1rem;
+}
+
+.season-word-text {
+  font-weight: 600;
 }
 
 .verse-time {
-  margin-top: 10px;
   font-size: 0.8rem;
   color: #95a5a6;
 }

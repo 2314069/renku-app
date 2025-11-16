@@ -28,22 +28,23 @@ export function validate77(text: string): { valid: boolean; error?: string } {
 }
 
 // 季語のリスト（簡易版）
-const SEASON_WORDS = {
+export const SEASON_WORDS = {
   spring: ['春', '桜', '花見', '新緑', '若葉', '菜の花', 'つばめ', 'うぐいす'],
   summer: ['夏', '暑', '涼', '風鈴', '扇', '団扇', '蝉', '蛍', '花火'],
   autumn: ['秋', '紅葉', '月', '菊', '稲', '柿', '雁', '鹿', '霧'],
   winter: ['冬', '雪', '寒', '梅', '椿', '霜', '氷', '枯', '炉']
 };
 
+// 全季語のフラットなリスト
+export const ALL_SEASON_WORDS = [
+  ...SEASON_WORDS.spring,
+  ...SEASON_WORDS.summer,
+  ...SEASON_WORDS.autumn,
+  ...SEASON_WORDS.winter
+];
+
 export function detectSeasonWord(text: string): string | undefined {
-  const allWords = [
-    ...SEASON_WORDS.spring,
-    ...SEASON_WORDS.summer,
-    ...SEASON_WORDS.autumn,
-    ...SEASON_WORDS.winter
-  ];
-  
-  for (const word of allWords) {
+  for (const word of ALL_SEASON_WORDS) {
     if (text.includes(word)) {
       return word;
     }
