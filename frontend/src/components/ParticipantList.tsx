@@ -23,6 +23,22 @@ export default function ParticipantList({
   const [name, setName] = useState(currentParticipant?.name || '');
   const [isSaving, setIsSaving] = useState(false);
 
+  // 入力フィールドにフォーカスが当たったら編集モードにする
+  const handleFocus = () => {
+    setIsEditing(true);
+  };
+
+  // デバッグ用ログ
+  useEffect(() => {
+    console.log('ParticipantList Debug:', {
+      currentParticipantId,
+      currentParticipant,
+      participants,
+      isEditing,
+      name
+    });
+  }, [currentParticipantId, currentParticipant, participants, isEditing, name]);
+
   // 参加者が更新されたら名前を同期
   useEffect(() => {
     if (currentParticipant && !isEditing) {
@@ -71,17 +87,29 @@ export default function ParticipantList({
       <div className="participant-list">
         <div className="name-section">
           <div className="name-label">名前</div>
-          {isEditing ? (
-            <div className="name-edit">
-              <input
-                type="text"
-                value={name}
-                onChange={handleNameChange}
-                onKeyDown={handleKeyDown}
-                className="name-input"
-                disabled={isSaving}
-                autoFocus
-              />
+          <div className="name-edit">
+            <input
+              type="text"
+              value={name}
+              onChange={handleNameChange}
+              onKeyDown={handleKeyDown}
+              onFocus={handleFocus}
+              onBlur={() => {
+                // フォーカスが外れたら自動保存（変更がある場合のみ）
+                if (name.trim() && currentParticipant && name.trim() !== currentParticipant.name) {
+                  handleSave();
+                } else if (!name.trim() || !currentParticipant) {
+                  // 空欄の場合は元の値に戻す
+                  setName(currentParticipant?.name || '');
+                }
+                // 少し遅延させてから編集モードを解除（ボタンクリックを確実に処理するため）
+                setTimeout(() => setIsEditing(false), 200);
+              }}
+              className="name-input"
+              disabled={isSaving}
+              placeholder="名前を入力"
+            />
+            {isEditing && (
               <div className="name-edit-actions">
                 <button 
                   className="name-save-btn" 
@@ -98,16 +126,8 @@ export default function ParticipantList({
                   キャンセル
                 </button>
               </div>
-            </div>
-          ) : (
-            <div 
-              className="name-item name-item-editable"
-              onClick={() => setIsEditing(true)}
-              title="クリックして編集"
-            >
-              {currentParticipant ? currentParticipant.name : '未設定'}
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         <div className="rules-section">
