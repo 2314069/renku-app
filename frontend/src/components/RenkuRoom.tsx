@@ -18,7 +18,6 @@ interface RenkuRoomProps {
 export default function RenkuRoom({ renku, participantId, onAddVerse, onRenkuUpdate, onRenkuDelete }: RenkuRoomProps) {
   const nextVerseType = renku.verses.length === 0 ? '575' : 
     renku.verses[renku.verses.length - 1].type === '575' ? '77' : '575';
-  const isMyTurn = renku.participants[renku.currentTurn]?.id === participantId;
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [title, setTitle] = useState(renku.title);
   const [isSaving, setIsSaving] = useState(false);
@@ -155,7 +154,6 @@ export default function RenkuRoom({ renku, participantId, onAddVerse, onRenkuUpd
           <VerseInput
             verseType={nextVerseType as '575' | '77'}
             verses={renku.verses}
-            isMyTurn={isMyTurn}
             onAddVerse={onAddVerse}
           />
         </div>

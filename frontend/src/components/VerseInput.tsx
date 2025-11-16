@@ -6,14 +6,12 @@ import './VerseInput.css';
 interface VerseInputProps {
   verseType: '575' | '77';
   verses: Verse[];
-  isMyTurn: boolean;
   onAddVerse: (text: string, seasonWord?: string) => void;
 }
 
 export default function VerseInput({
   verseType,
   verses,
-  isMyTurn,
   onAddVerse
 }: VerseInputProps) {
   const [text, setText] = useState('');
@@ -30,11 +28,6 @@ export default function VerseInput({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!isMyTurn) {
-      setError('まだあなたの順番ではありません');
-      return;
-    }
 
     const trimmedText = text.trim();
     
@@ -82,12 +75,6 @@ export default function VerseInput({
         </div>
       </div>
 
-      {!isMyTurn && (
-        <div className="waiting-message">
-          <p>他の参加者の順番です。お待ちください...</p>
-        </div>
-      )}
-
       <form onSubmit={handleSubmit} className="verse-input-form">
         <textarea
           value={text}
@@ -97,7 +84,6 @@ export default function VerseInput({
             : 'ここに句を入力（例：天にも昇る　心の如くも）'}
           className="verse-textarea"
           rows={3}
-          disabled={!isMyTurn}
           maxLength={maxChars + 10}
         />
         
@@ -110,7 +96,6 @@ export default function VerseInput({
             value={selectedSeasonWord}
             onChange={(e) => setSelectedSeasonWord(e.target.value)}
             className="season-word-select"
-            disabled={!isMyTurn}
           >
             <option value="">選択しない（自動検出）</option>
             <optgroup label="春">
@@ -159,7 +144,7 @@ export default function VerseInput({
             <button 
               type="submit" 
               className="submit-verse-btn"
-              disabled={!isMyTurn || text.trim().length === 0}
+              disabled={text.trim().length === 0}
             >
               投稿
             </button>
