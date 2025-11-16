@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Verse } from '../types';
-import { validate575, validate77, detectSeasonWord, checkTabooWords, SEASON_WORDS } from '../utils/verseValidator';
+import { validate575, validate77, detectSeasonWord, checkTabooWords } from '../utils/verseValidator';
 import './VerseInput.css';
 
 interface VerseInputProps {
@@ -97,27 +97,11 @@ export default function VerseInput({
             onChange={(e) => setSelectedSeasonWord(e.target.value)}
             className="season-word-select"
           >
-            <option value="">選択しない（自動検出）</option>
-            <optgroup label="春">
-              {SEASON_WORDS.spring.map(word => (
-                <option key={word} value={word}>{word}</option>
-              ))}
-            </optgroup>
-            <optgroup label="夏">
-              {SEASON_WORDS.summer.map(word => (
-                <option key={word} value={word}>{word}</option>
-              ))}
-            </optgroup>
-            <optgroup label="秋">
-              {SEASON_WORDS.autumn.map(word => (
-                <option key={word} value={word}>{word}</option>
-              ))}
-            </optgroup>
-            <optgroup label="冬">
-              {SEASON_WORDS.winter.map(word => (
-                <option key={word} value={word}>{word}</option>
-              ))}
-            </optgroup>
+            <option value="">季語なし</option>
+            <option value="春">春</option>
+            <option value="夏">夏</option>
+            <option value="秋">秋</option>
+            <option value="冬">冬</option>
           </select>
         </div>
         
