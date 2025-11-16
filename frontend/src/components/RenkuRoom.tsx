@@ -163,7 +163,6 @@ export default function RenkuRoom({ renku, participantId, onAddVerse, onRenkuUpd
         <aside className="sidebar">
           <ParticipantList 
             participants={renku.participants}
-            currentTurn={renku.currentTurn}
             currentParticipantId={participantId}
             renkuId={renku._id}
           />

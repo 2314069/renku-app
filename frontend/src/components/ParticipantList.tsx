@@ -5,7 +5,6 @@ import './ParticipantList.css';
 
 interface ParticipantListProps {
   participants: Participant[];
-  currentTurn: number;
   currentParticipantId: string;
   renkuId: string;
   onNameUpdate?: () => void;
@@ -13,7 +12,6 @@ interface ParticipantListProps {
 
 export default function ParticipantList({ 
   participants, 
-  currentTurn,
   currentParticipantId,
   renkuId,
   onNameUpdate
