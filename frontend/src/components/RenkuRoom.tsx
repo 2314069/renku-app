@@ -24,7 +24,19 @@ export default function RenkuRoom({ renku, participantId, onAddVerse, onRenkuUpd
   
   // 現在の参加者の権限を取得
   const currentParticipant = renku.participants.find(p => p.id === participantId);
+  // 権限チェック: roleが'admin'の場合のみtrue
   const isAdmin = currentParticipant?.role === 'admin';
+  
+  // デバッグ用ログ
+  useEffect(() => {
+    console.log('権限チェック:', {
+      participantId,
+      currentParticipant,
+      role: currentParticipant?.role,
+      isAdmin,
+      allParticipants: renku.participants
+    });
+  }, [participantId, currentParticipant, isAdmin, renku.participants]);
 
   // renku.titleが変更されたらtitleステートを更新
   useEffect(() => {
