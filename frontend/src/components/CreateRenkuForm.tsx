@@ -11,11 +11,13 @@ export default function CreateRenkuForm({ onCreate }: CreateRenkuFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim() || !participantName.trim()) {
-      alert('タイトルと参加者名を入力してください');
+    if (!title.trim()) {
+      alert('タイトルを入力してください');
       return;
     }
-    onCreate(title, participantName);
+    // 名前が空の場合はデフォルト名を使用
+    const name = participantName.trim() || '参加者';
+    onCreate(title, name);
   };
 
   return (
@@ -35,13 +37,13 @@ export default function CreateRenkuForm({ onCreate }: CreateRenkuFormProps) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="participantName">あなたの名前</label>
+        <label htmlFor="participantName">あなたの名前（任意）</label>
         <input
           id="participantName"
           type="text"
           value={participantName}
           onChange={(e) => setParticipantName(e.target.value)}
-          placeholder="例：太郎"
+          placeholder="例：太郎（未入力の場合は「参加者」になります）"
           maxLength={20}
         />
       </div>
