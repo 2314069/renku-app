@@ -98,10 +98,22 @@ export default function VerseInput({
             className="season-word-select"
           >
             <option value="">季語なし</option>
-            <option value="春">春</option>
-            <option value="夏">夏</option>
-            <option value="秋">秋</option>
-            <option value="冬">冬</option>
+            <option value="三春">三春</option>
+            <option value="初春">初春</option>
+            <option value="仲春">仲春</option>
+            <option value="晩春">晩春</option>
+            <option value="三夏">三夏</option>
+            <option value="初夏">初夏</option>
+            <option value="仲夏">仲夏</option>
+            <option value="晩夏">晩夏</option>
+            <option value="三秋">三秋</option>
+            <option value="初秋">初秋</option>
+            <option value="仲秋">仲秋</option>
+            <option value="晩秋">晩秋</option>
+            <option value="三冬">三冬</option>
+            <option value="初冬">初冬</option>
+            <option value="仲冬">仲冬</option>
+            <option value="晩冬">晩冬</option>
           </select>
         </div>
         
