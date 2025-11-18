@@ -37,11 +37,13 @@ export default function JoinRenkuForm({ onJoin }: JoinRenkuFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!renkuId.trim() || !participantName.trim()) {
-      alert('連句IDと参加者名を入力してください');
+    if (!renkuId.trim()) {
+      alert('連句IDを入力してください');
       return;
     }
-    onJoin(renkuId, participantName);
+    // 名前が空の場合はデフォルト名を使用
+    const name = participantName.trim() || '参加者';
+    onJoin(renkuId, name);
   };
 
   return (
@@ -96,13 +98,13 @@ export default function JoinRenkuForm({ onJoin }: JoinRenkuFormProps) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="participantName">あなたの名前</label>
+        <label htmlFor="participantName">あなたの名前（任意）</label>
         <input
           id="participantName"
           type="text"
           value={participantName}
           onChange={(e) => setParticipantName(e.target.value)}
-          placeholder="例：花子"
+          placeholder="例：花子（未入力の場合は「参加者」になります）"
           maxLength={20}
         />
       </div>
