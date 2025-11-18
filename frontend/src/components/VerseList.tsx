@@ -13,12 +13,14 @@ function VerseItem({ verse, renkuId, onUpdate }: { verse: Verse; renkuId: string
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(verse.text);
   const [seasonWord, setSeasonWord] = useState(verse.seasonWord || '');
+  const [participantName, setParticipantName] = useState(verse.participantName || '');
   const [isSaving, setIsSaving] = useState(false);
 
   const handleEdit = () => {
     setIsEditing(true);
     setText(verse.text);
     setSeasonWord(verse.seasonWord || '');
+    setParticipantName(verse.participantName || '');
   };
 
   const handleSave = async () => {
@@ -27,9 +29,14 @@ function VerseItem({ verse, renkuId, onUpdate }: { verse: Verse; renkuId: string
       return;
     }
 
+    if (!participantName.trim()) {
+      alert('名前を入力してください');
+      return;
+    }
+
     setIsSaving(true);
     try {
-      await api.updateVerse(renkuId, verse.id, text.trim(), seasonWord || undefined);
+      await api.updateVerse(renkuId, verse.id, text.trim(), seasonWord || undefined, participantName.trim());
       setIsEditing(false);
       if (onUpdate) {
         onUpdate();
@@ -45,6 +52,7 @@ function VerseItem({ verse, renkuId, onUpdate }: { verse: Verse; renkuId: string
   const handleCancel = () => {
     setText(verse.text);
     setSeasonWord(verse.seasonWord || '');
+    setParticipantName(verse.participantName || '');
     setIsEditing(false);
   };
 
@@ -74,6 +82,20 @@ function VerseItem({ verse, renkuId, onUpdate }: { verse: Verse; renkuId: string
             disabled={isSaving}
             autoFocus
           />
+          <div className="verse-edit-name">
+            <label htmlFor={`name-${verse.id}`} className="verse-edit-name-label">
+              詠者:
+            </label>
+            <input
+              id={`name-${verse.id}`}
+              type="text"
+              value={participantName}
+              onChange={(e) => setParticipantName(e.target.value)}
+              className="verse-edit-name-input"
+              disabled={isSaving}
+              placeholder="名前を入力"
+            />
+          </div>
           <div className="verse-edit-season">
             <label htmlFor={`season-${verse.id}`} className="verse-edit-season-label">
               季語:
@@ -96,7 +118,7 @@ function VerseItem({ verse, renkuId, onUpdate }: { verse: Verse; renkuId: string
             <button
               className="verse-save-btn"
               onClick={handleSave}
-              disabled={isSaving || !text.trim()}
+              disabled={isSaving || !text.trim() || !participantName.trim()}
             >
               保存
             </button>

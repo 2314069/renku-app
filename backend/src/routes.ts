@@ -184,7 +184,7 @@ export function setupRoutes(app: Express, io: Server): void {
   app.put('/api/renku/:id/verse/:verseId', async (req, res) => {
     try {
       const { id, verseId } = req.params;
-      const { text, seasonWord } = req.body;
+      const { text, seasonWord, participantName } = req.body;
       const db = getDatabase();
       const renkuCollection = db.collection<Renku>('renku');
       
@@ -210,6 +210,9 @@ export function setupRoutes(app: Express, io: Server): void {
       }
       if (seasonWord !== undefined) {
         verse.seasonWord = seasonWord;
+      }
+      if (participantName !== undefined) {
+        verse.participantName = participantName;
       }
 
       renku.updatedAt = new Date();

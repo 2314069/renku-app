@@ -65,10 +65,11 @@ export const api = {
   },
 
   // 句を更新
-  updateVerse: async (renkuId: string, verseId: string, text: string, seasonWord?: string): Promise<Verse> => {
+  updateVerse: async (renkuId: string, verseId: string, text: string, seasonWord?: string, participantName?: string): Promise<Verse> => {
     const response = await axios.put(`${API_BASE_URL}/api/renku/${renkuId}/verse/${verseId}`, {
       text,
-      seasonWord
+      seasonWord,
+      participantName
     });
     return response.data;
   }
