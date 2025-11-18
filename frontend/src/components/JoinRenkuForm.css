@@ -37,6 +37,24 @@
   border-color: #3498db;
 }
 
+.role-select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #30363d;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  background: #0d1117;
+  color: #e0e0e0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.role-select:focus {
+  outline: none;
+  border-color: #58a6ff;
+}
+
 .submit-btn {
   width: 100%;
   padding: 14px;

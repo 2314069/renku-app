@@ -6,10 +6,11 @@ import './VerseList.css';
 interface VerseListProps {
   verses: Verse[];
   renkuId: string;
+  isAdmin?: boolean;
   onVerseUpdate?: () => void;
 }
 
-function VerseItem({ verse, renkuId, onUpdate }: { verse: Verse; renkuId: string; onUpdate?: () => void }) {
+function VerseItem({ verse, renkuId, isAdmin, onUpdate }: { verse: Verse; renkuId: string; isAdmin?: boolean; onUpdate?: () => void }) {
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(verse.text);
   const [seasonWord, setSeasonWord] = useState(verse.seasonWord || '');
@@ -62,7 +63,7 @@ function VerseItem({ verse, renkuId, onUpdate }: { verse: Verse; renkuId: string
         <span className="verse-order">第{verse.order}句</span>
         <span className="verse-type">{verse.type === '575' ? '5-7-5' : '7-7'}</span>
         <span className="verse-author">{verse.participantName}</span>
-        {!isEditing && (
+        {!isEditing && isAdmin && (
           <button
             className="verse-edit-btn"
             onClick={handleEdit}
@@ -166,7 +167,7 @@ function VerseItem({ verse, renkuId, onUpdate }: { verse: Verse; renkuId: string
   );
 }
 
-export default function VerseList({ verses, renkuId, onVerseUpdate }: VerseListProps) {
+export default function VerseList({ verses, renkuId, isAdmin, onVerseUpdate }: VerseListProps) {
   if (verses.length === 0) {
     return (
       <div className="verse-list-empty">
@@ -184,6 +185,7 @@ export default function VerseList({ verses, renkuId, onVerseUpdate }: VerseListP
             key={verse.id}
             verse={verse}
             renkuId={renkuId}
+            isAdmin={isAdmin}
             onUpdate={onVerseUpdate}
           />
         ))}

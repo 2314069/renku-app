@@ -21,6 +21,10 @@ export default function RenkuRoom({ renku, participantId, onAddVerse, onRenkuUpd
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [title, setTitle] = useState(renku.title);
   const [isSaving, setIsSaving] = useState(false);
+  
+  // 現在の参加者の権限を取得
+  const currentParticipant = renku.participants.find(p => p.id === participantId);
+  const isAdmin = currentParticipant?.role === 'admin';
 
   // renku.titleが変更されたらtitleステートを更新
   useEffect(() => {
@@ -115,27 +119,35 @@ export default function RenkuRoom({ renku, participantId, onAddVerse, onRenkuUpd
               </div>
             </div>
           ) : (
-            <h1 onClick={handleEditTitle} className="title-editable" title="クリックして編集">
+            <h1 
+              onClick={isAdmin ? handleEditTitle : undefined} 
+              className={isAdmin ? "title-editable" : ""} 
+              title={isAdmin ? "クリックして編集" : ""}
+            >
               {renku.title}
             </h1>
           )}
           <p className="renku-id">連句ID: {renku._id}</p>
         </div>
         <div className="header-actions">
-          <button
-            className="edit-renku-btn"
-            onClick={handleEditTitle}
-            title="タイトルを編集"
-          >
-            編集
-          </button>
-          <button
-            className="delete-renku-btn"
-            onClick={handleDelete}
-            title="連句を削除"
-          >
-            削除
-          </button>
+          {isAdmin && (
+            <>
+              <button
+                className="edit-renku-btn"
+                onClick={handleEditTitle}
+                title="タイトルを編集"
+              >
+                編集
+              </button>
+              <button
+                className="delete-renku-btn"
+                onClick={handleDelete}
+                title="連句を削除"
+              >
+                削除
+              </button>
+            </>
+          )}
           <ExportButton renku={renku} />
         </div>
       </header>
@@ -152,6 +164,7 @@ export default function RenkuRoom({ renku, participantId, onAddVerse, onRenkuUpd
           <VerseList 
             verses={renku.verses}
             renkuId={renku._id}
+            isAdmin={isAdmin}
             onVerseUpdate={() => {
               // 句が更新されたら連句を再取得
               if (onRenkuUpdate) {
@@ -162,11 +175,13 @@ export default function RenkuRoom({ renku, participantId, onAddVerse, onRenkuUpd
             }}
           />
 
-          <VerseInput
-            verseType={nextVerseType as '575' | '77'}
-            verses={renku.verses}
-            onAddVerse={onAddVerse}
-          />
+          {isAdmin && (
+            <VerseInput
+              verseType={nextVerseType as '575' | '77'}
+              verses={renku.verses}
+              onAddVerse={onAddVerse}
+            />
+          )}
         </div>
 
         <aside className="sidebar">

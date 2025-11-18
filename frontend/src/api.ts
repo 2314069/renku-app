@@ -5,10 +5,11 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export const api = {
   // 新しい連句を作成
-  createRenku: async (title: string, participantName: string): Promise<Renku> => {
+  createRenku: async (title: string, participantName: string, role: string): Promise<Renku> => {
     const response = await axios.post(`${API_BASE_URL}/api/renku`, {
       title,
-      participantName
+      participantName,
+      role
     });
     return response.data;
   },
@@ -30,9 +31,10 @@ export const api = {
   },
 
   // 参加者を追加
-  addParticipant: async (renkuId: string, name: string): Promise<Participant> => {
+  addParticipant: async (renkuId: string, name: string, role: string): Promise<Participant> => {
     const response = await axios.post(`${API_BASE_URL}/api/renku/${renkuId}/participant`, {
-      name
+      name,
+      role
     });
     return response.data;
   },

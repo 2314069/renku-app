@@ -13,6 +13,7 @@ export interface Participant {
   id: string;
   name: string;
   joinedAt: string;
+  role?: 'admin' | 'participant';
 }
 
 export interface Verse {

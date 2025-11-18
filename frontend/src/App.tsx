@@ -39,9 +39,9 @@ function App() {
     }
   }, [socket, renku]);
 
-  const handleCreateRenku = async (title: string, participantName: string) => {
+  const handleCreateRenku = async (title: string, participantName: string, role: string) => {
     try {
-      const newRenku = await api.createRenku(title, participantName);
+      const newRenku = await api.createRenku(title, participantName, role);
       setRenku(newRenku);
       setParticipantId(newRenku.participants[0].id);
       setMode('room');
@@ -51,10 +51,10 @@ function App() {
     }
   };
 
-  const handleJoinRenku = async (renkuId: string, participantName: string) => {
+  const handleJoinRenku = async (renkuId: string, participantName: string, role: string) => {
     try {
       const renkuData = await api.getRenku(renkuId);
-      const newParticipant = await api.addParticipant(renkuId, participantName);
+      const newParticipant = await api.addParticipant(renkuId, participantName, role);
       setRenku({ ...renkuData, participants: [...renkuData.participants, newParticipant] });
       setParticipantId(newParticipant.id);
       setMode('room');

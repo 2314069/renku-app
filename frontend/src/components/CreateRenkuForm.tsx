@@ -2,12 +2,13 @@ import { useState } from 'react';
 import './CreateRenkuForm.css';
 
 interface CreateRenkuFormProps {
-  onCreate: (title: string, participantName: string) => void;
+  onCreate: (title: string, participantName: string, role: string) => void;
 }
 
 export default function CreateRenkuForm({ onCreate }: CreateRenkuFormProps) {
   const [title, setTitle] = useState('');
   const [participantName, setParticipantName] = useState('');
+  const [role, setRole] = useState<'admin' | 'participant'>('admin');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ export default function CreateRenkuForm({ onCreate }: CreateRenkuFormProps) {
     }
     // 名前が空の場合はデフォルト名を使用
     const name = participantName.trim() || '参加者';
-    onCreate(title, name);
+    onCreate(title, name, role);
   };
 
   return (
@@ -46,6 +47,19 @@ export default function CreateRenkuForm({ onCreate }: CreateRenkuFormProps) {
           placeholder="例：太郎（未入力の場合は「参加者」になります）"
           maxLength={20}
         />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="role">権限</label>
+        <select
+          id="role"
+          value={role}
+          onChange={(e) => setRole(e.target.value as 'admin' | 'participant')}
+          className="role-select"
+        >
+          <option value="admin">運営者（編集や投稿が可能）</option>
+          <option value="participant">参加者（閲覧のみ）</option>
+        </select>
       </div>
 
       <button type="submit" className="submit-btn">
