@@ -38,18 +38,6 @@ export default function CreateRenkuForm({ onCreate }: CreateRenkuFormProps) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="participantName">あなたの名前（任意）</label>
-        <input
-          id="participantName"
-          type="text"
-          value={participantName}
-          onChange={(e) => setParticipantName(e.target.value)}
-          placeholder="例：太郎（未入力の場合は「参加者」になります）"
-          maxLength={20}
-        />
-      </div>
-
-      <div className="form-group">
         <label htmlFor="role">権限</label>
         <select
           id="role"
@@ -60,6 +48,18 @@ export default function CreateRenkuForm({ onCreate }: CreateRenkuFormProps) {
           <option value="admin">運営者（編集や投稿が可能）</option>
           <option value="participant">参加者（閲覧のみ）</option>
         </select>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="participantName">あなたの名前（任意）</label>
+        <input
+          id="participantName"
+          type="text"
+          value={participantName}
+          onChange={(e) => setParticipantName(e.target.value)}
+          placeholder="例：太郎（未入力の場合は「参加者」になります）"
+          maxLength={20}
+        />
       </div>
 
       <button type="submit" className="submit-btn">
