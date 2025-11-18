@@ -130,14 +130,46 @@ export default function ParticipantList({
 
         <div className="rules-section">
           <div className="rules-label">ルール</div>
-          <ul className="rules-list">
-            <li>5-7-5 / 7-7 の付けを交互に進行</li>
-            <li>季語は適切に配置する</li>
-            <li>直前句と意味の飛躍を適度に保つ</li>
-          </ul>
-          <div className="rules-actions">
-            <button className="rule-btn small">詳細</button>
-            <button className="rule-btn small">履歴</button>
+          <div className="rules-content">
+            <div className="rules-structure">
+              <div className="rule-group">
+                <div className="rule-group-title">●初折</div>
+                <div className="rule-group-content">
+                  <div>┏表八句（七句め／月）</div>
+                  <div>┗裏十四句（十句め／月　十三句め／花）</div>
+                </div>
+              </div>
+              <div className="rule-group">
+                <div className="rule-group-title">●二の折</div>
+                <div className="rule-group-content">
+                  <div>┏表十四句（十三句め／月）</div>
+                  <div>┗裏十四句（十句め／月　十三句め／花）</div>
+                </div>
+              </div>
+              <div className="rule-group">
+                <div className="rule-group-title">●三の折</div>
+                <div className="rule-group-content">
+                  <div>┏表十四句（十三句め／月）</div>
+                  <div>┗裏十四句（十句め／月　十三句め／花）</div>
+                </div>
+              </div>
+              <div className="rule-group">
+                <div className="rule-group-title">●名残の折</div>
+                <div className="rule-group-content">
+                  <div>┏表十四句（十三句め／月）</div>
+                  <div>┗裏八句（七句め／花）</div>
+                </div>
+              </div>
+            </div>
+            <ul className="rules-list">
+              <li>発句と同字は避ける。同じ内容は避ける。</li>
+              <li>打越と同字、似たような内容は避ける。</li>
+              <li>発句以外で「や、かな、けり」などの切れ字は使わない。</li>
+              <li>春、秋の句は３～５句続ける。夏、冬の句は１～３句まで。</li>
+              <li>短句の下句はヨミニゴーを（できるだけ）避ける。→連句初めて、という人にはここまで求めなくて良い。</li>
+              <li>恋句も適宜入れる。恋句は１句では終わらせず最大５句まで。恋句は何度入れてもよいが、前の恋の句から最低５句は間を開ける。</li>
+              <li>去嫌い、自他場は気にしなくて良い。</li>
+            </ul>
           </div>
         </div>
       </div>
