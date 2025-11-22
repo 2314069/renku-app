@@ -86,7 +86,7 @@ function VerseItem({ verse, renkuId, isAdmin, onUpdate }: { verse: Verse; renkuI
       <div className="verse-header">
         <span className="verse-order">第{verse.order}句</span>
         {sectionInfo.section && (
-          <span className="verse-section">{sectionInfo.section} {sectionInfo.side}</span>
+          <span className="verse-section">{sectionInfo.section}　{sectionInfo.side}</span>
         )}
         <span className="verse-type">{verse.type === '575' ? '5-7-5' : '7-7'}</span>
         <span className="verse-author">{verse.participantName}</span>
