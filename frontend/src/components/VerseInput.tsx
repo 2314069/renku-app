@@ -62,19 +62,41 @@ export default function VerseInput({
     ? `要件: 5-7-5 付け`
     : `要件: 7-7 付け`;
 
+  const moonSeats = [7, 18, 35, 46, 63, 74, 91];
+  const flowerSeats = [21, 49, 77, 99];
+
   return (
     <div className="verse-input-container">
       <div className="verse-input-header">
         <div className="verse-input-title-row">
           <h2>句の投稿</h2>
           <div className="verse-requirement">
+            <div>第{nextOrder}句</div>
             <div>{requirementText}</div>
-            {seatInfo.isMoon && (
-              <div className="seat-info moon-seat">月の定座（第{nextOrder}句）</div>
-            )}
-            {seatInfo.isFlower && (
-              <div className="seat-info flower-seat">花の定座（第{nextOrder}句）</div>
-            )}
+            <div className="seat-info-list">
+              <div className="seat-info-label">月の定座</div>
+              <div className="seat-info-items">
+                {moonSeats.map((seat) => (
+                  <span
+                    key={`moon-${seat}`}
+                    className={`seat-info-item ${seat === nextOrder ? 'moon-seat active' : 'seat-inactive'}`}
+                  >
+                    {seat}
+                  </span>
+                ))}
+              </div>
+              <div className="seat-info-label">花の定座</div>
+              <div className="seat-info-items">
+                {flowerSeats.map((seat) => (
+                  <span
+                    key={`flower-${seat}`}
+                    className={`seat-info-item ${seat === nextOrder ? 'flower-seat active' : 'seat-inactive'}`}
+                  >
+                    {seat}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
