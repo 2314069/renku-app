@@ -132,7 +132,6 @@ export default function ParticipantList({
           <div className="rules-label">式目</div>
           <div className="rules-content">
             <div className="rules-structure">
-              <div className="rules-structure-title">※百韻の構成と簡単式目</div>
               <div className="rule-group">
                 <div className="rule-group-title">●初折</div>
                 <div className="rule-group-content">
