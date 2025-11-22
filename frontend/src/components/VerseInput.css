@@ -27,47 +27,28 @@
   align-items: flex-end;
 }
 
+.seat-indicator {
+  font-weight: 600;
+}
+
+.moon-seat-indicator {
+  color: #58a6ff;
+}
+
+.flower-seat-indicator {
+  color: #f85149;
+}
+
 .seat-info-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   margin-top: 4px;
 }
 
 .seat-info-label {
-  font-size: 0.8rem;
-  color: #8b949e;
-  margin-bottom: 2px;
-}
-
-.seat-info-items {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-}
-
-.seat-info-item {
-  padding: 2px 8px;
-  border-radius: 8px;
   font-size: 0.75rem;
-  font-weight: 600;
-  min-width: 24px;
-  text-align: center;
-}
-
-.seat-info-item.seat-inactive {
-  background: #30363d;
   color: #8b949e;
-}
-
-.seat-info-item.moon-seat.active {
-  background: #58a6ff;
-  color: white;
-}
-
-.seat-info-item.flower-seat.active {
-  background: #f85149;
-  color: white;
 }
 
 .verse-input-title-row h2 {
