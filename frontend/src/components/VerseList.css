@@ -87,6 +87,15 @@
   font-size: 1rem;
 }
 
+.verse-section {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #30363d;
+  color: #e0e0e0;
+}
+
 .verse-type {
   padding: 4px 10px;
   border-radius: 12px;

@@ -10,12 +10,36 @@ interface VerseListProps {
   onVerseUpdate?: () => void;
 }
 
+// 句の順番に応じて折と表裏の情報を取得する関数
+function getSectionInfo(order: number): { section: string; side: string } {
+  if (order >= 1 && order <= 8) {
+    return { section: '初折', side: '表八句' };
+  } else if (order >= 9 && order <= 22) {
+    return { section: '初折', side: '裏十四句' };
+  } else if (order >= 23 && order <= 36) {
+    return { section: '二の折', side: '表十四句' };
+  } else if (order >= 37 && order <= 50) {
+    return { section: '二の折', side: '裏十四句' };
+  } else if (order >= 51 && order <= 64) {
+    return { section: '三の折', side: '表十四句' };
+  } else if (order >= 65 && order <= 78) {
+    return { section: '三の折', side: '裏十四句' };
+  } else if (order >= 79 && order <= 92) {
+    return { section: '名残の折', side: '表十四句' };
+  } else if (order >= 93 && order <= 100) {
+    return { section: '名残の折', side: '裏八句' };
+  }
+  return { section: '', side: '' };
+}
+
 function VerseItem({ verse, renkuId, isAdmin, onUpdate }: { verse: Verse; renkuId: string; isAdmin?: boolean; onUpdate?: () => void }) {
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(verse.text);
   const [seasonWord, setSeasonWord] = useState(verse.seasonWord || '');
   const [participantName, setParticipantName] = useState(verse.participantName || '');
   const [isSaving, setIsSaving] = useState(false);
+  
+  const sectionInfo = getSectionInfo(verse.order);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -61,6 +85,9 @@ function VerseItem({ verse, renkuId, isAdmin, onUpdate }: { verse: Verse; renkuI
     <div className={`verse-item verse-${verse.type}`}>
       <div className="verse-header">
         <span className="verse-order">第{verse.order}句</span>
+        {sectionInfo.section && (
+          <span className="verse-section">{sectionInfo.section} {sectionInfo.side}</span>
+        )}
         <span className="verse-type">{verse.type === '575' ? '5-7-5' : '7-7'}</span>
         <span className="verse-author">{verse.participantName}</span>
         {!isEditing && isAdmin && (
