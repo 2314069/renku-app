@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Verse } from '../types';
-import { validate575, validate77, detectSeasonWord, checkTabooWords } from '../utils/verseValidator';
+import { validate575, validate77, detectSeasonWord } from '../utils/verseValidator';
 import './VerseInput.css';
 
 interface VerseInputProps {
@@ -17,7 +17,6 @@ export default function VerseInput({
   const [text, setText] = useState('');
   const [selectedSeasonWord, setSelectedSeasonWord] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-  const [warning, setWarning] = useState<string | null>(null);
   const [charCount, setCharCount] = useState(0);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -25,7 +24,6 @@ export default function VerseInput({
     setText(newText);
     setCharCount(newText.length);
     setError(null);
-    setWarning(null);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -43,14 +41,6 @@ export default function VerseInput({
       return;
     }
 
-    // 禁忌語チェック（警告のみ、投稿は可能）
-    const tabooCheck = checkTabooWords(verses, trimmedText, verses.length === 0);
-    if (!tabooCheck.valid) {
-      setWarning(tabooCheck.error || '禁忌語が使われています');
-    } else {
-      setWarning(null);
-    }
-
     // 季語の選択（選択されていない場合は自動検出）
     const seasonWord = selectedSeasonWord || detectSeasonWord(trimmedText);
 
@@ -59,7 +49,6 @@ export default function VerseInput({
     setSelectedSeasonWord('');
     setCharCount(0);
     setError(null);
-    setWarning(null);
   };
 
   const maxChars = verseType === '575' ? 17 : 14;
@@ -151,7 +140,6 @@ export default function VerseInput({
           </div>
           
           {error && <div className="error-message">{error}</div>}
-          {warning && <div className="warning-message">{warning}</div>}
           {!error && text.trim() && (
             <div className="validation-hint">
               形式チェック: {verseType === '575' ? '5-7-5形式' : '7-7形式'}
