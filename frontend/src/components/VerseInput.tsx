@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Verse } from '../types';
-import { validate575, validate77, detectSeasonWord } from '../utils/verseValidator';
+import { detectSeasonWord } from '../utils/verseValidator';
 import './VerseInput.css';
 
 interface VerseInputProps {
@@ -16,14 +16,12 @@ export default function VerseInput({
 }: VerseInputProps) {
   const [text, setText] = useState('');
   const [selectedSeasonWord, setSelectedSeasonWord] = useState<string>('');
-  const [error, setError] = useState<string | null>(null);
   const [charCount, setCharCount] = useState(0);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;
     setText(newText);
     setCharCount(newText.length);
-    setError(null);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -31,13 +29,8 @@ export default function VerseInput({
 
     const trimmedText = text.trim();
     
-    // バリデーション
-    const validation = verseType === '575' 
-      ? validate575(trimmedText)
-      : validate77(trimmedText);
-    
-    if (!validation.valid) {
-      setError(validation.error || '無効な句です');
+    // 空文字チェックのみ
+    if (trimmedText.length === 0) {
       return;
     }
 
@@ -48,10 +41,8 @@ export default function VerseInput({
     setText('');
     setSelectedSeasonWord('');
     setCharCount(0);
-    setError(null);
   };
 
-  const maxChars = verseType === '575' ? 17 : 14;
 
   const lastVerse = verses.length > 0 ? verses[verses.length - 1] : null;
   const lastSeasonWord = lastVerse?.seasonWord || '未設定';
@@ -77,7 +68,6 @@ export default function VerseInput({
             : 'ここに句を入力（例：天にも昇る　心の如くも）'}
           className="verse-textarea"
           rows={3}
-          maxLength={maxChars + 10}
         />
         
         <div className="season-word-selector">
@@ -113,9 +103,7 @@ export default function VerseInput({
         <div className="input-footer">
           <div className="char-count-wrapper">
             <div className="char-count">
-              <span className={charCount > maxChars ? 'over-limit' : ''}>
-                文字数: {charCount}
-              </span>
+              文字数: {charCount}
             </div>
           </div>
           
@@ -139,12 +127,6 @@ export default function VerseInput({
             </button>
           </div>
           
-          {error && <div className="error-message">{error}</div>}
-          {!error && text.trim() && (
-            <div className="validation-hint">
-              形式チェック: {verseType === '575' ? '5-7-5形式' : '7-7形式'}
-            </div>
-          )}
         </div>
       </form>
     </div>

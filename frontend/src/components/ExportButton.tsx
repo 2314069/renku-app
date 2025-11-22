@@ -103,27 +103,37 @@ export default function ExportButton({ renku }: ExportButtonProps) {
     element.innerHTML = htmlContent;
     element.style.position = 'absolute';
     element.style.left = '-9999px';
+    element.style.width = '210mm'; // A4幅
+    element.style.padding = '20px';
+    element.style.backgroundColor = '#ffffff';
     document.body.appendChild(element);
+
+    // 要素がレンダリングされるまで少し待つ
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     try {
       const opt = {
         margin: [20, 20, 20, 20] as [number, number, number, number],
         filename: `${renku.title}_連句_${new Date().toISOString().split('T')[0]}.pdf`,
         image: { type: 'jpeg' as const, quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
+        html2canvas: { 
+          scale: 2, 
+          useCORS: true, 
+          logging: false,
+          backgroundColor: '#ffffff'
+        },
         jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const }
       };
 
       // PDFを生成してBlobとして取得
       const pdfBlob = await html2pdf().set(opt).from(element).output('blob');
       
-      // 新しいタブでPDFを表示
+      // Blob URLを作成して新しいタブで開く
       const pdfUrl = URL.createObjectURL(pdfBlob);
-      const newWindow = window.open(pdfUrl, '_blank');
-      
-      if (!newWindow) {
-        alert('ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。');
-      }
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.target = '_blank';
+      link.click();
       
       // クリーンアップ
       document.body.removeChild(element);
@@ -134,7 +144,7 @@ export default function ExportButton({ renku }: ExportButtonProps) {
       }, 1000);
     } catch (error) {
       console.error('PDF生成エラー:', error);
-      alert('PDFの生成に失敗しました');
+      alert('PDFの生成に失敗しました: ' + (error instanceof Error ? error.message : String(error)));
       if (document.body.contains(element)) {
         document.body.removeChild(element);
       }
