@@ -21,6 +21,27 @@
 .verse-requirement {
   color: #8b949e;
   font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.seat-info {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.moon-seat {
+  background: #58a6ff;
+  color: white;
+}
+
+.flower-seat {
+  background: #f85149;
+  color: white;
 }
 
 .verse-input-title-row h2 {

@@ -9,6 +9,16 @@ interface VerseInputProps {
   onAddVerse: (text: string, seasonWord?: string) => void;
 }
 
+// 月の定座と花の定座を判定する関数
+function getSeatInfo(order: number): { isMoon: boolean; isFlower: boolean } {
+  const moonSeats = [7, 18, 35, 46, 63, 74, 91];
+  const flowerSeats = [21, 49, 77, 99];
+  return {
+    isMoon: moonSeats.includes(order),
+    isFlower: flowerSeats.includes(order)
+  };
+}
+
 export default function VerseInput({
   verseType,
   verses: _verses,
@@ -17,6 +27,10 @@ export default function VerseInput({
   const [text, setText] = useState('');
   const [selectedSeasonWord, setSelectedSeasonWord] = useState<string>('');
   const [charCount, setCharCount] = useState(0);
+  
+  // 次の句の順番を計算
+  const nextOrder = _verses.length + 1;
+  const seatInfo = getSeatInfo(nextOrder);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;
@@ -53,7 +67,15 @@ export default function VerseInput({
       <div className="verse-input-header">
         <div className="verse-input-title-row">
           <h2>句の投稿</h2>
-          <div className="verse-requirement">{requirementText}</div>
+          <div className="verse-requirement">
+            <div>{requirementText}</div>
+            {seatInfo.isMoon && (
+              <div className="seat-info moon-seat">月の定座（第{nextOrder}句）</div>
+            )}
+            {seatInfo.isFlower && (
+              <div className="seat-info flower-seat">花の定座（第{nextOrder}句）</div>
+            )}
+          </div>
         </div>
       </div>
 
