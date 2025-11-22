@@ -11,7 +11,7 @@ interface VerseInputProps {
 
 export default function VerseInput({
   verseType,
-  verses,
+  verses: _verses,
   onAddVerse
 }: VerseInputProps) {
   const [text, setText] = useState('');
