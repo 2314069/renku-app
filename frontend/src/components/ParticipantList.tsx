@@ -136,29 +136,32 @@ export default function ParticipantList({
               <div className="rule-group">
                 <div className="rule-group-title">●初折</div>
                 <div className="rule-group-content">
-                  <div>　　　　　┏表八句（１～８）　（七句め・７／月）</div>
-                  <div>　　　　　┗裏十四句（９～22）（十句め・18／月、十三句め・21／花）</div>
+                  <div>表八句（１～８）　（七句め・７／月）</div>
+                  <div>裏十四句（９～22）（十句め・18／月、十三句め・21／花）</div>
+                  <div style={{ marginTop: '8px' }}></div>
                 </div>
               </div>
               <div className="rule-group">
                 <div className="rule-group-title">●二の折</div>
                 <div className="rule-group-content">
-                  <div>　　　　　┏表十四句（23～36）（十三句め・35／月）</div>
-                  <div>　　　　　┗裏十四句（37～50）（十句め・46／月、十三句め・49／花）</div>
+                  <div>表十四句（23～36）（十三句め・35／月）</div>
+                  <div>裏十四句（37～50）（十句め・46／月、十三句め・49／花）</div>
+                  <div style={{ marginTop: '8px' }}></div>
                 </div>
               </div>
               <div className="rule-group">
                 <div className="rule-group-title">●三の折</div>
                 <div className="rule-group-content">
-                  <div>　　　　　┏表十四句（51～64）（十三句め・63／月）</div>
-                  <div>　　　　　┗裏十四句（65～78）（十句め・74／月、十三句め・77／花）</div>
+                  <div>表十四句（51～64）（十三句め・63／月）</div>
+                  <div>裏十四句（65～78）（十句め・74／月、十三句め・77／花）</div>
+                  <div style={{ marginTop: '8px' }}></div>
                 </div>
               </div>
               <div className="rule-group">
                 <div className="rule-group-title">●名残の折</div>
                 <div className="rule-group-content">
-                  <div>　　　　　┏表十四句（79～92）（十三句め・91／月）</div>
-                  <div>　　　　　┗裏八句　（93～100）（七句め・99／花）</div>
+                  <div>表十四句（79～92）（十三句め・91／月）</div>
+                  <div>裏八句　（93～100）（七句め・99／花）</div>
                 </div>
               </div>
             </div>
@@ -167,8 +170,8 @@ export default function ParticipantList({
               <li>打越と同字、似たような内容は避ける。</li>
               <li>発句以外で「や、かな、けり」などの切れ字は使わない。</li>
               <li>春、秋の句は３～５句続ける。夏、冬の句は１～３句まで。</li>
-              <li>短句の下句はヨミニゴーを（できるだけ）避ける。→連句初めて、という人にはここまで求めなくて良い。</li>
-              <li>恋句も適宜入れる。恋句は１句では終わらせず最大５句まで。恋句は何度入れてもよいが、前の恋の句から最低５句は間を開ける。</li>
+              <li>短句の下句はヨミニゴーを（できるだけ）避ける。<br />→連句初めて、という人にはここまで求めなくて良い。</li>
+              <li>恋句も適宜入れる。恋句は１句では終わらせず最大５句まで。<br />恋句は何度入れてもよいが、前の恋の句から最低５句は間を開ける。</li>
               <li>去嫌い、自他場は気にしなくて良い。</li>
             </ul>
           </div>
