@@ -81,7 +81,7 @@ export default function ParticipantList({
   
   return (
     <div className="participant-list-container">
-      <h3>名前 / ルール</h3>
+      <h3>名前 / 式目</h3>
       <div className="participant-list">
         <div className="name-section">
           <div className="name-label">名前</div>
@@ -129,7 +129,7 @@ export default function ParticipantList({
         </div>
 
         <div className="rules-section">
-          <div className="rules-label">ルール</div>
+          <div className="rules-label">式目</div>
           <div className="rules-content">
             <div className="rules-structure">
               <div className="rules-structure-title">※百韻の構成と簡単式目</div>
