@@ -13,7 +13,7 @@ declare module 'html2pdf.js' {
     margin?: number | [number, number] | [number, number, number, number];
     filename?: string;
     image?: {
-      type?: string;
+      type?: 'jpeg' | 'png' | 'webp';
       quality?: number;
     };
     html2canvas?: {
