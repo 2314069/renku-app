@@ -4,6 +4,24 @@ import { ObjectId } from 'mongodb';
 import { getDatabase } from './database';
 import type { Renku, Verse, Participant } from './database';
 
+// RenkuオブジェクトをJSONレスポンス用に変換するヘルパー関数
+function serializeRenku(renku: Renku): any {
+  return {
+    ...renku,
+    _id: renku._id?.toString(),
+    createdAt: renku.createdAt instanceof Date ? renku.createdAt.toISOString() : renku.createdAt,
+    updatedAt: renku.updatedAt instanceof Date ? renku.updatedAt.toISOString() : renku.updatedAt,
+    participants: renku.participants.map(p => ({
+      ...p,
+      joinedAt: p.joinedAt instanceof Date ? p.joinedAt.toISOString() : p.joinedAt
+    })),
+    verses: renku.verses.map(v => ({
+      ...v,
+      createdAt: v.createdAt instanceof Date ? v.createdAt.toISOString() : v.createdAt
+    }))
+  };
+}
+
 export function setupRoutes(app: Express, io: Server): void {
   // ヘルスチェック
   app.get('/', (req, res) => {
@@ -26,13 +44,8 @@ export function setupRoutes(app: Express, io: Server): void {
         .limit(100)
         .toArray();
 
-      // ObjectIdを文字列に変換
-      const response = renkus.map(renku => ({
-        ...renku,
-        _id: renku._id?.toString(),
-        createdAt: renku.createdAt instanceof Date ? renku.createdAt.toISOString() : renku.createdAt,
-        updatedAt: renku.updatedAt instanceof Date ? renku.updatedAt.toISOString() : renku.updatedAt
-      }));
+      // ObjectIdとDateを文字列に変換
+      const response = renkus.map(renku => serializeRenku(renku));
 
       res.json(response);
     } catch (error) {
@@ -44,14 +57,15 @@ export function setupRoutes(app: Express, io: Server): void {
   // 新しい連句を作成
   app.post('/api/renku', async (req, res) => {
     try {
-      const { title, participantName } = req.body;
+      const { title, participantName, role } = req.body;
       const db = getDatabase();
       const renkuCollection = db.collection<Renku>('renku');
       
       const participant: Participant = {
         id: `p_${Date.now()}`,
         name: participantName,
-        joinedAt: new Date()
+        joinedAt: new Date(),
+        role: role || 'admin'
       };
 
       const renku: Omit<Renku, '_id'> = {
@@ -71,12 +85,8 @@ export function setupRoutes(app: Express, io: Server): void {
         return res.status(500).json({ error: '連句の作成に失敗しました' });
       }
 
-      // ObjectIdを文字列に変換
-      const response = {
-        ...createdRenku,
-        _id: createdRenku._id?.toString()
-      };
-
+      // ObjectIdとDateを文字列に変換
+      const response = serializeRenku(createdRenku);
       res.json(response);
     } catch (error) {
       console.error('連句作成エラー:', error);
@@ -102,12 +112,8 @@ export function setupRoutes(app: Express, io: Server): void {
         return res.status(404).json({ error: '連句が見つかりません' });
       }
 
-      // ObjectIdを文字列に変換
-      const response = {
-        ...renku,
-        _id: renku._id?.toString()
-      };
-
+      // ObjectIdとDateを文字列に変換
+      const response = serializeRenku(renku);
       res.json(response);
     } catch (error) {
       console.error('連句取得エラー:', error);
@@ -167,10 +173,7 @@ export function setupRoutes(app: Express, io: Server): void {
       );
 
       // Socket.ioで更新を通知
-      const response = {
-        ...renku,
-        _id: renku._id?.toString()
-      };
+      const response = serializeRenku(renku);
       io.to(`renku-${id}`).emit('renku-updated', response);
 
       res.json(newVerse);
@@ -227,10 +230,7 @@ export function setupRoutes(app: Express, io: Server): void {
       );
 
       // Socket.ioで更新を通知
-      const response = {
-        ...renku,
-        _id: renku._id?.toString()
-      };
+      const response = serializeRenku(renku);
       io.to(`renku-${id}`).emit('renku-updated', response);
 
       res.json(verse);
@@ -244,7 +244,7 @@ export function setupRoutes(app: Express, io: Server): void {
   app.post('/api/renku/:id/participant', async (req, res) => {
     try {
       const { id } = req.params;
-      const { name } = req.body;
+      const { name, role } = req.body;
       const db = getDatabase();
       const renkuCollection = db.collection<Renku>('renku');
       
@@ -262,7 +262,8 @@ export function setupRoutes(app: Express, io: Server): void {
       const newParticipant: Participant = {
         id: `p_${Date.now()}`,
         name,
-        joinedAt: new Date()
+        joinedAt: new Date(),
+        role: role || 'participant'
       };
 
       renku.participants.push(newParticipant);
@@ -330,10 +331,7 @@ export function setupRoutes(app: Express, io: Server): void {
       );
 
       // Socket.ioで更新を通知
-      const response = {
-        ...renku,
-        _id: renku._id?.toString()
-      };
+      const response = serializeRenku(renku);
       io.to(`renku-${id}`).emit('renku-updated', response);
 
       res.json(participant);
@@ -379,10 +377,7 @@ export function setupRoutes(app: Express, io: Server): void {
       );
 
       // Socket.ioで更新を通知
-      const response = {
-        ...renku,
-        _id: renku._id?.toString()
-      };
+      const response = serializeRenku(renku);
       io.to(`renku-${id}`).emit('renku-updated', response);
 
       res.json(response);

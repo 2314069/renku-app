@@ -40,6 +40,7 @@ export interface Participant {
   id: string;
   name: string;
   joinedAt: Date;
+  role?: 'admin' | 'participant';
 }
 
 export interface Verse {
