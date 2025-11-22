@@ -44,11 +44,9 @@ export default function VerseInput({
   };
 
 
-  const lastVerse = verses.length > 0 ? verses[verses.length - 1] : null;
-  const lastSeasonWord = lastVerse?.seasonWord || '未設定';
   const requirementText = verseType === '575' 
-    ? `要件: 5-7-5 付け、季語: ${lastSeasonWord}`
-    : `要件: 7-7 付け、季語: ${lastSeasonWord}`;
+    ? `要件: 5-7-5 付け`
+    : `要件: 7-7 付け`;
 
   return (
     <div className="verse-input-container">
