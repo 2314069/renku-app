@@ -99,24 +99,23 @@ export default function ExportButton({ renku }: ExportButtonProps) {
     // 一時的な要素を作成してPDFを生成
     const element = document.createElement('div');
     element.innerHTML = htmlContent;
-    element.style.position = 'fixed';
+    element.style.position = 'absolute';
     element.style.top = '0';
-    element.style.left = '0';
+    element.style.left = '-9999px'; // 画面外に配置（表示はする）
     element.style.width = '794px'; // A4幅をピクセルに変換（210mm ≈ 794px）
     element.style.minHeight = '1123px'; // A4高さをピクセルに変換（297mm ≈ 1123px）
     element.style.backgroundColor = '#ffffff';
     element.style.color = '#333333';
     element.style.zIndex = '9999';
     element.style.overflow = 'visible';
-    element.style.opacity = '0';
-    element.style.pointerEvents = 'none';
     document.body.appendChild(element);
 
     // 要素がレンダリングされるまで待つ
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // 要素の高さを取得
-    const elementHeight = element.scrollHeight || element.offsetHeight;
+    // 要素の実際のサイズを取得
+    const elementWidth = element.scrollWidth || element.offsetWidth || 794;
+    const elementHeight = element.scrollHeight || element.offsetHeight || 1123;
 
     try {
       const opt = {
@@ -128,8 +127,10 @@ export default function ExportButton({ renku }: ExportButtonProps) {
           useCORS: true, 
           logging: false,
           backgroundColor: '#ffffff',
-          width: 794,
-          height: elementHeight || 1123
+          width: elementWidth,
+          height: elementHeight,
+          scrollX: 0,
+          scrollY: 0
         },
         jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const }
       };
