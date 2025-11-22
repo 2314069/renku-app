@@ -103,8 +103,8 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>連句アプリ</h1>
-        <p className="subtitle">オンラインで複数人で連句を詠もう</p>
+        <h1>renkun</h1>
+        <p className="subtitle">みんなで連句で遊ぼう</p>
       </header>
 
       <main className="app-main">
