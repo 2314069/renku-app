@@ -132,37 +132,38 @@ export default function ParticipantList({
           <div className="rules-label">ルール</div>
           <div className="rules-content">
             <div className="rules-structure">
+              <div className="rules-structure-title">※百韻の構成と簡単式目</div>
               <div className="rule-group">
                 <div className="rule-group-title">●初折</div>
                 <div className="rule-group-content">
-                  <div>┏表八句（七句め／月）</div>
-                  <div>┗裏十四句（十句め／月　十三句め／花）</div>
+                  <div>　　　　　┏表八句（１～８）　（七句め・７／月）</div>
+                  <div>　　　　　┗裏十四句（９～22）（十句め・18／月、十三句め・21／花）</div>
                 </div>
               </div>
               <div className="rule-group">
                 <div className="rule-group-title">●二の折</div>
                 <div className="rule-group-content">
-                  <div>┏表十四句（十三句め／月）</div>
-                  <div>┗裏十四句（十句め／月　十三句め／花）</div>
+                  <div>　　　　　┏表十四句（23～36）（十三句め・35／月）</div>
+                  <div>　　　　　┗裏十四句（37～50）（十句め・46／月、十三句め・49／花）</div>
                 </div>
               </div>
               <div className="rule-group">
                 <div className="rule-group-title">●三の折</div>
                 <div className="rule-group-content">
-                  <div>┏表十四句（十三句め／月）</div>
-                  <div>┗裏十四句（十句め／月　十三句め／花）</div>
+                  <div>　　　　　┏表十四句（51～64）（十三句め・63／月）</div>
+                  <div>　　　　　┗裏十四句（65～78）（十句め・74／月、十三句め・77／花）</div>
                 </div>
               </div>
               <div className="rule-group">
                 <div className="rule-group-title">●名残の折</div>
                 <div className="rule-group-content">
-                  <div>┏表十四句（十三句め／月）</div>
-                  <div>┗裏八句（七句め／花）</div>
+                  <div>　　　　　┏表十四句（79～92）（十三句め・91／月）</div>
+                  <div>　　　　　┗裏八句　（93～100）（七句め・99／花）</div>
                 </div>
               </div>
             </div>
             <ul className="rules-list">
-              <li>発句と同字は避ける。同じ内容は避ける。</li>
+              <li>発句と同字は（できるだけ）避ける。同じ内容は避ける。</li>
               <li>打越と同字、似たような内容は避ける。</li>
               <li>発句以外で「や、かな、けり」などの切れ字は使わない。</li>
               <li>春、秋の句は３～５句続ける。夏、冬の句は１～３句まで。</li>
