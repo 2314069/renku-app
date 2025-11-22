@@ -9,16 +9,6 @@ interface VerseInputProps {
   onAddVerse: (text: string, seasonWord?: string) => void;
 }
 
-// 月の定座と花の定座を判定する関数
-function getSeatInfo(order: number): { isMoon: boolean; isFlower: boolean } {
-  const moonSeats = [7, 18, 35, 46, 63, 74, 91];
-  const flowerSeats = [21, 49, 77, 99];
-  return {
-    isMoon: moonSeats.includes(order),
-    isFlower: flowerSeats.includes(order)
-  };
-}
-
 export default function VerseInput({
   verseType,
   verses: _verses,
@@ -30,7 +20,6 @@ export default function VerseInput({
   
   // 次の句の順番を計算
   const nextOrder = _verses.length + 1;
-  const seatInfo = getSeatInfo(nextOrder);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;
